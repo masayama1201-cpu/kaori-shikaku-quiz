@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題1〜10）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題1〜10）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 1●企業法務の役割",
+  num: 1, source: "H27後",
+  q: "企業におけるコンプライアンスやリスクマネジメントに関する記述として不適切なものは、次のうちどれか。",
+  choices: [
+    "企業不祥事等のコンプライアンス違反を犯した企業は、再発防止策の策定が要請される。このため、当該違反企業のうち、とりわけ上場企業は、法令上、第三者委員会を設置して事実関係の調査や原因の究明を行わなければならない。",
+    "コンプライアンスと内部統制システムには密接な関係がある。一例として、企業は、粉飾決算や不正会計を未然に防止するため、各種規程や決裁権限などにより、内部統制システムを健全に機能させることを通じて、コンプライアンスを確保している。",
+    "リスクマネジメントは、リスクコントロールとリスクファイナンシングに大別される。リスクファイナンシングは、社内資金による手当てなどによるリスク保有型と保険加入などによるリスク移転型の2つに分類される。",
+    "リーガルリスクは、責任形態により、民事上、刑事上又は行政上のリーガルリスクに分類しうる。取締役に関していえば、民事上のものとして善管注意義務違反、刑事上のものとして特別背任罪が挙げられる。"
+  ],
+  correct: 0,
+  point: "リスクマネジメントやコンプライアンスに関連して知っておくべき基礎知識の理解度を問う。",
+  explains: [
+    "不適切。第三者委員会の設置は法令上義務づけられてはおらず、不祥事などを起こした企業が自主的に設置し、調査している。",
+    "適切。株式会社は、「取締役の職務の執行が法令及び定款に適合することを確保するために必要なものとして法務省令で定める体制」の整備が義務づけられている（会社法第348条第3項第4号、第362条第4項第6号、第416条第1項第1号ホ）。",
+    "適切。リスクマネジメントはリスクコントロールとリスクファイナンシングに大別される。①リスクコントロール：リスクの予知・予測、発見→リスクの防止・回避→リスクへの対応→リスクの再発防止→（サイクルに戻る）というリスクコントロール・サイクルに合わせてリスクの防止・回避を図ること。②リスクファイナンシング：リスクが発生した場合に備えて手を打っておくこと。社内資金で手当てする「リスクの保有型」と、保険や契約の免責条項・保証契約による「リスクの移転型」の2つがある。",
+    "適切。リーガルリスクは、責任形態により、民事上・刑事上・行政上のリーガルリスクに分類しうる。①民事上：債務不履行や違法行為による損害賠償責任、契約解除のリスクなど。②刑事上：会社法上の刑事責任、刑法上の刑事責任、各種法律の罰則規定に基づく刑事責任。③行政上：行政強制（行政上の強制執行・即時強制）と行政処分（営業停止、指名停止、立入り検査、臨時検査など）。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 1●企業法務の役割",
+  num: 2, source: "H26前",
+  q: "以下は法務部に配属された新卒入社社員であるA氏とB法務部長との会話である。下線部ア〜エのうち不適切なものは、次のうちどれか。\n\nB部長「Aさん、入社おめでとう。いち早く一人前の法務マンとして活躍できるよう、がんばってください。期待しています」\nA氏「よろしくお願いいたします。配属前に人事部門の方から、私は、主に、ア．秘密保持契約書や業務委託契約書の作成・審査などの組織法務を担当することになると聞きました」\nB部長「そうです。イ．契約は、基本的には、契約自由の原則に基づき当事者間で自由に定められるため自由度が高い業務ですが、相手あってのことですから、当社が過剰なリスクをとらないように契約内容を綿密に検討、調整しなければならない点で、会社のリスクマネジメント上非常に重要な仕事です。C主任のOJTを受けながら実務にあたってもらいます」\nA氏「承知しました。法務部ではほかにはどのような業務を行っているのですか」\nB部長「ほかには、ウ．特許出願、商標登録、権利侵害の調査・対応などの知的財産法務も法務部が主管しています。ただ、これらの業務は専門性が高いため、エ．特許や商標を出願・登録する際は弁理士、権利侵害が生じた場合は弁護士というように社外の専門家を活用しながら、協働で対応しています。ほかに質問はありますか」\nA氏「あとは業務に取り組む中でC主任に確認しようと思います。ありがとうございました」",
+  choices: [
+    "ア．秘密保持契約書や業務委託契約書の作成・審査などの組織法務を担当することになる",
+    "イ．契約は、基本的には、契約自由の原則に基づき当事者間で自由に定められる",
+    "ウ．特許出願、商標登録、権利侵害の調査・対応などの知的財産法務も法務部が主管している",
+    "エ．特許や商標を出願・登録する際は弁理士、権利侵害が生じた場合は弁護士というように社外の専門家を活用しながら、協働で対応している"
+  ],
+  correct: 0,
+  point: "企業法務の役割に関する基本知識の習得を測る。",
+  explains: [
+    "不適切。契約書の作成・審査等は「契約法務」である（秘密保持契約書・業務委託契約書の作成・審査は「組織法務」ではない）。",
+    "適切。契約は、基本的には、契約自由の原則、私的自治の原則に基づき当事者間で自由に定めうるので、大きなリスクを負わされる契約も、ほとんどの場合、有効である。",
+    "適切。企業法務は、業務内容別に、①コンプライアンス法務、②契約法務、③知的財産法務、④争訟管理法務、⑤その他の法務に分けることができる。③の知的財産法務は、特許出願という技術的業務を内包している点で、他の法務と異質の面を持っている。",
+    "適切。社外専門家の活用は、法的判断の確認のみならず、外部の客観的な視点により独断的判断を排除するためにも必要なものである。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 2●企業活動とコンプライアンス",
+  num: 3, source: "H27前",
+  q: "企業法務に関する記述として適切なものは、次のうちどれか。",
+  choices: [
+    "小売店で購入した家電製品の欠陥により被害を受けた者は、家電製品の製造業者及び小売店に対して、製造物責任法に基づく損害賠償を請求できる。",
+    "債権譲渡による回収を図る際に、譲受人自らが、債権譲渡通知書を作成し、譲渡人から記名・押印を得たうえで郵便局に出向いて内容証明郵便を送付することは、許されない。",
+    "株式会社は、会社法により、公開性を基準として公開会社とそうでない会社に区分され、また会社の規模により、大会社とそうでない会社に区分される。",
+    "消費者基本法、割賦販売法、消費者契約法等の消費者保護法のうち、消費者基本法と消費者契約法は、民法の特別法として重要な役割を果たしている。"
+  ],
+  correct: 2,
+  point: "企業法務部員が企業法務を処理するにあたって、必要とされる基礎知識の理解度を問う。",
+  explains: [
+    "不適切。製造物責任を負う「製造業者等」には、原則として小売業者は含まれない（製造物責任法第2条第3項）。",
+    "不適切。緊急事態であり、このように自ら行うことは、実務上、通例である。",
+    "適切。会社法は定款に、株式譲渡制限の定めがある会社か否かを基準にして、発行する全ての株式について譲渡制限のある株式会社以外の株式会社を「公開会社」と定義している（同法第2条第5号）。公開会社以外の株式会社は一般に「非公開会社」とか「株式譲渡制限会社」と呼ばれるが、厳密にいうなら「全株式譲渡制限会社」と呼ぶべきものである。要するに、「公開会社」とは「全株式譲渡制限会社」以外の株式会社のことをいう。",
+    "不適切。消費者契約法は民法の特別法であるが、消費者行政の基本法たる消費者基本法は民法の特別法ではない。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 2●企業活動とコンプライアンス",
+  num: 4, source: "H26後",
+  q: "企業法務とコンプライアンスに関する記述として不適切なものは、次のうちどれか。",
+  choices: [
+    "コンプライアンスは、法令遵守と称されることが多いが、コンプライアンスの達成のためには、法令の規定を遵守することにとどまらず、法令の目的、法令の精神を遵守しなければならない。",
+    "会社法により監査役は、業務執行の適法性を監査する権限を付与されているから、コンプライアンスを主管する機関は監査役であり、法務部は監査役を補助する立場にすぎない。",
+    "コンプライアンスにとって、会社法上及び金商法上の内部統制システムの確立も必要である。",
+    "コンプライアンスの対象は、法的危険に限らず社会的責任も含まれるという考えが一般的である。"
+  ],
+  correct: 1,
+  point: "法務部の重要な業務の1つであるコンプライアンス業務の基本知識と、法務部の役割についての理解度を問う。",
+  explains: [
+    "適切。「法令を遵守する」ということは「現行法上確立した判例・学説に依拠する」ことに限定せずに、「法令」の趣旨、目的といった、いわば「法の精神」に反しないことであるべきであろう。",
+    "不適切。コンプライアンスを主管する機関としては、監査役よりもスタッフが充実しており、かつ執行部（取締役）の指揮下にある法務部のほうが適切である。もちろん、法務部は監査役の協力を仰ぐべきであるのは当然である。",
+    "適切。内部統制システムは、まさにコンプライアンスの確保のための体制を意味する。株式会社は、会社法に基づきコンプライアンス体制の確保が義務づけられているのである。また金商法にも、内部統制システムに関する規定がある（金商法第24条の4の4等）。",
+    "適切。「コンプライアンス」の対象となっているのは通常「法令」であるが、「法令」とともに「社会的責任」を含めることも可能である。「社会的責任」を「コンプライアンス」の対象に含める場合には「社会的責任」を明確に定義しておく必要がある。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 2●企業活動とコンプライアンス",
+  num: 5, source: "H26前",
+  q: "企業不祥事に関する記述として不適切なものは、次のうちどれか。",
+  choices: [
+    "企業不祥事の予防のためには、コンプライアンスの徹底、内部統制体制の強化などが必要であるが、手法としてはリーガルリスク・マネジメントの考え方が有益である。",
+    "ソフトウェアプログラムの欠陥により被害を受けた者は、そのソフトウェアの作成業者に対し、製造物責任法に基づき損害賠償を請求できる。",
+    "食品の偽装表示に対しては、食品衛生法、JAS法、景表法、不競法などのほか、刑法の詐欺罪も適用されることがある。",
+    "インサイダー情報に基づいて株式売買を行ったが、結果、利益が出なかった場合でも、金商法のインサイダー取引規制に抵触する。"
+  ],
+  correct: 1,
+  point: "企業不祥事の予防に必要な能力を測る。",
+  explains: [
+    "適切。企業活動には必然的に経営判断を伴うが、その経営判断の際にはコンプライアンス（法令遵守）の確保が不可欠である。そうでないと違法事件となり企業不祥事となりうるからである。コンプライアンスの確保のためには、企業におけるリーガルリスク・マネジメント（法的危険管理）の手法が有益である。",
+    "不適切。製造物責任法は動産を対象としており、ソフトウェアは対象外である（同法第2条第1項）。",
+    "適切。刑法第246条。",
+    "適切。「標準テキスト」に言及はないが、インサイダー情報に基づく株式の売買行為自体が違法（インサイダー取引）であることについて、企業・社会人の常識として知っておいてもらいたい（金商法第166条）。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 2●企業活動とコンプライアンス",
+  num: 6, source: "H26後",
+  q: "優越的地位の濫用、セクシュアル・ハラスメント、パワー・ハラスメント、製造物責任及び食品偽装に関する記述として不適切なものは、次のうちどれか。",
+  choices: [
+    "納入業者と小売業者間において納入業者の事業規模が大きい場合でも、小売業者が納入業者に協賛金を強要するなど不当に不利益を与えるときは、独禁法上の優越的地位の濫用が成立する。",
+    "セクシュアル・ハラスメントには、法律上の定義があるが、パワー・ハラスメントには法律上の定義はない。しかし、パワー・ハラスメントについてもセクシュアル・ハラスメントと同様、加害者につき民事上は不法行為責任が成立する。",
+    "スーパーマーケット等の販売業者は、食品メーカーに製造委託した食料品を自社商品と表示して販売した場合でも、自ら製造していないことを理由に、製造物責任法の適用を免れる。",
+    "食品の偽装表示については、景表法も不競法も適用される。"
+  ],
+  correct: 2,
+  point: "製造物責任、セクシュアル・ハラスメント、パワー・ハラスメントの基礎知識、食品偽装に関する基本的法律知識を問う。",
+  explains: [
+    "適切。独禁法上の優越的地位の濫用は、市場における相対的な優位性が基準となっており、売上高などの事業規模は無関係。",
+    "適切。選択肢のとおり。",
+    "不適切。「当該製造物にその製造業者と誤認させるような氏名等の表示をした者」は製造業者と連帯して製造物責任を負う（製造物責任法第2条第3項第2号）。",
+    "適切。不競法第2条第1項第13号。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 2●企業活動とコンプライアンス",
+  num: 7, source: "H27前",
+  q: "企業におけるコンプライアンス体制の整備に関する記述として不適切なものは、次のうちどれか。",
+  choices: [
+    "製造物責任法は、消費者が製品の使用方法や危険性を正しく理解せずに使用し思わぬ損害が生じないよう、製造業者等に対し、指示・警告の表示を義務づけている。",
+    "大会社である取締役会設置会社において、取締役会は、内部統制システムの整備についての基本方針を決定しなければならない。",
+    "事業者は、景表法に基づき、景品類の提供と商品・サービスの表示に関する事項を適正に管理するために必要な体制を整備することが義務づけられている。",
+    "会社は、コンプライアンス体制の整備にあたり、自らの事業に適用ある法令及びその趣旨・目的を網羅的に把握する必要がある。"
+  ],
+  correct: 0,
+  point: "コンプライアンス整備に関連して知っておくべき基礎知識の理解度を問う。",
+  explains: [
+    "不適切。警告・説明表示を怠ると指示・警告上の欠陥があるとして、製造物責任法により損害賠償責任を負うことになるが、同法上、指示・警告の表示義務はない。",
+    "適切。会社は健全な会社経営のために事業の規模、特性等に応じたリスク管理体制（内部統制システム）を構築する必要があるが、このようなリスク管理体制は取締役会（非取締役会設置会社では、取締役）が決定すると定められている（会社法第362条第4項第6号、第416条第1項第1号ホ、第348条第3項第4号）。",
+    "適切。不当景品類規制と不当表示規制については、景表法が制定されている。景表法は、当初、独禁法の特例を定める位置づけであったが、近年、食品の偽装表示や商品の安全性に関わる事件などが相次いで生じ、社会問題となったことに起因して、消費者の目線で行政運営されるべきとの観点から、平成21（2009）年9月1日に創設された消費者庁に引き継がれた。",
+    "適切。平成26年6月に景表法が改正され、事業者によるコンプライアンス体制の確立が義務化された（第7条）。事業者は、不当に顧客を誘引し、一般消費者による自主的かつ合理的な選択を阻害することのないよう、景品類の提供に関する事項及び表示に関する事項を適正に管理するために必要な体制整備その他の必要な措置を講じなければならない。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 3●法令解釈・用語の基礎",
+  num: 8, source: "H24前",
+  q: "企業法務に関する記述として正しいものは、次のうちどれか。",
+  choices: [
+    "法令文における時間的即時性の用語において、その強さは強いほうから、「直ちに」→「遅滞なく」→「速やかに」の順である。",
+    "法令用語としての「推定する」と「みなす」との差は、前者が反証をあげて覆すことができるのに対して、後者はそれができないという点にある。",
+    "我が国は英米とは異なり成文法主義を採用していることから、法律条文の解釈においては、判例は学説と同じく参考程度にとどまる。",
+    "法令には憲法、法律、政令、省令等が含まれるが、地方公共団体の条例は含まれない。"
+  ],
+  correct: 1,
+  point: "企業法務に必要な基礎的能力を測る。",
+  explains: [
+    "誤り。「直ちに」「速やかに」「遅滞なく」の順が正しい。",
+    "正しい。「推定する」と「みなす」とは、全く意味が異なる。「推定する」というのは法律上の取扱いについて事実はこうだと一応決めるだけで、本当の事実はそれと違う場合には、これを否定する明確な証拠を持ってくれば、その推定事実をひっくり返すことができるものである。一方「みなす」は、本来性質の違うものを一定の法律関係において同様に取り扱うものとしようとするときに用いられる。いわば法令の適用に関する擬制ということができる。「みなす」の場合には、「推定する」と異なり、これに対して反証を挙げて覆すことは認められない。",
+    "誤り。企業法務において、判例があれば、それに基づき法的判断を下すべきである。判例の存在しない場合には、学説が大いに参考になる。",
+    "誤り。「法令」にはその立法形式の相違に応じて、いろいろな種類のものがある。すなわち、憲法、法律、政令、省令・府令、地方公共団体の条例のほか、議院規則、最高裁判所規則、会計検査院規則、人事院規則、外局の規則、その他これに準ずる規則（公正取引委員会規則、国家公安委員会規則、中央労働委員会規則等）、地方公共団体の規則等があり、広義の「法令」には「条約」も含まれる。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 3●法令解釈・用語の基礎",
+  num: 9, source: "H26後",
+  q: "法令解釈に関する一連の解説として不適切なものは、次のうちどれか。",
+  choices: [
+    "我が国において、憲法は、他の全ての法令に対して強い形式的効力を持っている。これは形式的効力の原理に基づく解釈であり、法律は、この原理により、政令よりも強い効力を有するとされる。",
+    "一方で、法令解釈の原則の1つに後法優先の原理がある。つまり、法律より時間的に後に制定された政令は、この原則により、法律の規定に優先する。",
+    "他方、法的安定性とは、法秩序の内容が安定していて、どのような行為がどのような法律効果と結びつくのか予見可能な状態をいう。したがって、法的安定性が高ければ、人々はどのような行動が適法か判断しやすくなる。",
+    "しかしながら、法的安定性を重視しすぎると、具体的妥当性が害され、具体的な事件に即し妥当な結論を出すことが難しくなることに注意が必要である。"
+  ],
+  correct: 1,
+  point: "法令解釈の基礎知識を問う。",
+  explains: [
+    "適切。憲法は、他の全ての法令に対して最も強い形式的効力を持っている。以下、「法律」、「議院規則」・「最高裁判所規則」、「政令」、「府令」・「省令」、「地方公共団体の条例・規則」の順である。条約の形式的効力については条約と法律との関係では条約が法律に優先すると解されている。",
+    "不適切。後法優先の原理は、形式的効力が同じである法令相互間に矛盾・抵触が生じたときには、後に制定された法令（後法）は、前に制定された法令（前法）に優先するとして、その矛盾等を解決しようとする原理である。",
+    "適切。選択肢のとおり。",
+    "適切。選択肢のとおり。"
+  ]
+},
+{
+  cat: "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 3●法令解釈・用語の基礎",
+  num: 10, source: "H26前",
+  q: "法令解釈・法令用語に関する記述として適切なものは、次のうちどれか。",
+  choices: [
+    "法律が、その時代の人々の社会意識に合致するか否かは、具体的妥当性の問題と考えるべきであって、法的安定性の問題と考える余地はない。",
+    "婚姻をした未成年は、成人に達したと擬制されるが、この擬制を表すのにふさわしい法令用語は、「推定する」と「みなす」のうち、「推定する」である。",
+    "類推解釈は、いくら同質的事項を取り扱っている場合であっても、ほかの法律の規定については許されない。",
+    "経験則には、一般常識に属する論理法則はもちろん、専門科学上の法則も含まれる。"
+  ],
+  correct: 3,
+  point: "企業法務に必要な法令解釈と用語の基礎知識を問う。",
+  explains: [
+    "不適切。国民の意識とかけ離れた法律は、社会を規律することができず、安定した秩序を実現できないことから、法的安定性の問題と考えるべきである。",
+    "不適切。「みなす」は、本来性質の違うものを一定の法律関係において同様に取り扱うときに用いられる。したがって「みなす」がふさわしい。",
+    "不適切。このような場合には類推解釈は許される。",
+    "適切。経験則とは、「経験から帰納された事物に関する知識や法則」であり、一般常識に属するものから、職業上の技術、専門科学上の法則まで含まれている。"
+  ]
+}
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
