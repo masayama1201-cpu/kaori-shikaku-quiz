@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題51〜60）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題51〜60）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "D●雇用に関する法務 ＞ 2●雇用形態と問題点 ＞ 2●派遣と請負・業務委託",
+    "num": 51,
+    "source": "H26前",
+    "q": "労働者派遣に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "労働者派遣の派遣先は、派遣労働者に対して仕事の注文を出せるだけで、直接命令する権限はない。",
+      "労働者派遣の派遣先は、派遣労働者の仕事が遅れているときでも、時間の管理の責任は派遣元事業主にあるので、残業命令を出すことはできない。",
+      "労働者派遣契約の派遣代金は、法律には特に定めはないので、出来高制でもよい。",
+      "労働者派遣の場合には、派遣元事業主の派遣元責任者が必ず派遣先に常駐しているので、派遣先として派遣労働者の管理記録を付ける必要はない。"
+    ],
+    "correct": 2,
+    "point": "労働者派遣の基礎的な仕組みを理解する。",
+    "explains": [
+      "不適切。派遣先は、派遣労働者に対して、直接、業務についての指揮命令をすることができる。",
+      "不適切。派遣労働者の時間の管理の責任は派遣先にあり、残業命令を出すのも派遣先である。",
+      "適切。通常は、派遣料金は1時間あたりいくらということで、労働時間の長さによって定められるが、出来高制でいけないという規制もない。",
+      "不適切。派遣先には派遣先責任者を選任し、指揮命令者を特定することになっており、派遣元責任者が常駐するという仕組みにはなっていない。また、派遣先には派遣先管理台帳の作成・保管が義務づけられている。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 2●雇用形態と問題点 ＞ 2●派遣と請負・業務委託",
+    "num": 52,
+    "source": "H25前",
+    "q": "労働者派遣と業務委託（請負）に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "派遣労働者は、派遣先と労働契約を締結して、派遣先の指揮命令下で労務を提供する労働者である。",
+      "業務委託（請負）という契約形態を採りながら、実態は労働者派遣と評価できるような場合には、労働者派遣法違反である。",
+      "一般労働者派遣事業における派遣労働者とは、登録型の派遣労働者のことである。",
+      "労働者派遣事業においては、適用業務が限定されており、物の製造業務については派遣という契約形態ではできないことから、請負契約、業務委託等という契約形態で仕事を受けることとなる。"
+    ],
+    "correct": 1,
+    "point": "労働者派遣の内容と、労働者派遣と請負（業務委託）の関係を理解する。",
+    "explains": [
+      "不適切。派遣の場合は、派遣先とは労務提供、指揮命令関係であり、労働契約を締結してはいない。派遣先と労働契約を締結するとすれば、それは在籍出向になる。",
+      "適切。そのとおり。",
+      "不適切。一般労働者派遣事業は、特定労働者派遣事業以外の事業をいうのであり、特定労働者派遣事業は常用雇用の派遣労働者のみの場合であるから、全員が登録型の場合と、登録型と常用雇用型が混合している場合を含んでいる。",
+      "不適切。労働者派遣事業も既に基本的には派遣業務は自由であり（ポジティブリストからネガティブリストへ）、物の製造業務も平成16年3月1日から解禁されている。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 3●労働契約の権利義務関係 ＞ 3●セクシャル・ハラスメント（セクハラ）",
+    "num": 53,
+    "source": "H26後",
+    "q": "セクシュアル・ハラスメント及びパワー・ハラスメントに関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "セクシュアル・ハラスメントの被害を受けたと主張する社員がいた場合でも、会社は必ずしも関係者全員を調べる必要はない。",
+      "パワー・ハラスメントが行われたと主張する社員がいた場合に、会社として調査しなければ法令違反になる。",
+      "パワー・ハラスメントの場合、加害者である上司に対しては、降職・降格、人事異動、懲戒処分、解雇などの不利益な取扱いをしなければならない。",
+      "セクシュアル・ハラスメントがあったとして、被害者が加害者と雇用主である会社を併せて訴えた場合には、加害者と雇用主が2分の1ずつ賠償責任を負う。"
+    ],
+    "correct": 0,
+    "point": "セクシュアル・ハラスメント、パワー・ハラスメントの基本を理解する。",
+    "explains": [
+      "適切。事実関係が明白であれば、あえて関係者全員を調べる必要はない。",
+      "不適切。パワー・ハラスメントについては未だにそれを規制する法律はなく、また判例上も未だ明確ではなく、厚生労働省の指針もないので、パワー・ハラスメントが行われたと主張があったとしても、会社が調査しなければならないという義務はない。",
+      "不適切。イの解説と同様に、パワー・ハラスメントの場合にどうするべきなのかについての法令や判例、指針もないので、如何なる取扱いをしなければならないのかについては決められない。",
+      "不適切。必ずしもこのようにはいえず、加害者本人の責任は認められても使用者には使用者責任がない場合もあるし、責任が肯定されて連帯責任でも使用者と加害者の負担割合が異なる場合がある。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 3●労働契約の権利義務関係 ＞ 3●セクシャル・ハラスメント（セクハラ）",
+    "num": 54,
+    "source": "H24後",
+    "q": "セクシュアル・ハラスメント及びパワー・ハラスメントに関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "セクシュアル・ハラスメントは女性に対する性的な嫌がらせ行為であり、男性に対する性的嫌がらせ行為ではない。",
+      "パワー・ハラスメントは、職場の上位にある者が社会的相当性を逸脱した職務権限や人事上の影響力を行使することであるが、殴ったり、け飛ばしたり、物を投げたりする有形力の行使に限定されるものである。",
+      "パワー・ハラスメントを行った管理職に対して、会社には懲戒処分を行わなければならない義務がある。",
+      "雇用機会均等法上、使用者にはセクシュアル・ハラスメント防止のための措置義務があるとされており、また、同法を受けた厚生労働省の指針では、使用者には、セクシュアル・ハラスメントが認められた場合、行為者に対しては懲戒処分を行う等の適正な措置が求められている。"
+    ],
+    "correct": 3,
+    "point": "セクシュアル・ハラスメントとパワー・ハラスメントの定義と対応策について理解する。",
+    "explains": [
+      "不適切。セクシュアル・ハラスメントは、平成19年4月1日施行の改正男女雇用機会均等法では、被害者は女性のみならず男性にも拡大されている（同法第11条）。",
+      "不適切。パワー・ハラスメントには有形力の行使ばかりでなく、露骨な無視、職場からの排除、侮辱的な発言等の嫌がらせ行為も含まれる。",
+      "不適切。懲戒処分は会社の権限であって、義務ではない。したがって、懲戒処分をするべき場合が多いが、必ずしも行わなければならないとは限らない。",
+      "適切。男女雇用機会均等法第11条第1項、セクハラ指針。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 4●使用者責任 ＞ 1●使用者責任の意識",
+    "num": 55,
+    "source": "H27後",
+    "q": "使用者責任に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "A社の従業員とB社の従業員が共謀して詐欺行為を行った。A社が詐欺の被害者に対して損害を賠償した場合、A社はB社に対して、賠償額の一部を求償することができる。",
+      "工事現場で従業員の運転していたパワーショベルに押し倒されて、他の従業員が負傷した。この場合、会社だけではなく、従業員の労務管理や人員配置をしていた現場監督も使用者責任に基づき損害賠償責任を負う。",
+      "スーパーの店員が業務中に客に対して、金を預けてくれれば株取引で増やして返すと持ちかけ、預かった金銭を横領した。スーパーは被害を受けた客に対して、使用者責任に基づき損害賠償責任を負う。",
+      "従業員が業務中に起こした交通事故の被害者に対して、会社が損害賠償を行った。会社は従業員に対して、賠償額の一部を求償することができる。"
+    ],
+    "correct": 2,
+    "point": "使用者責任に関する基本的な知識を問う。",
+    "explains": [
+      "適切。共同不法行為の各加害者の使用者が賠償責任を負う場合、使用者の一方は、自己の負担部分を超えて損害を賠償した場合は、その超える部分について、使用者の他方に対し求償できる。",
+      "適切。使用者責任に基づき損害賠償責任を負うのは、使用者と代理監督者である。",
+      "不適切。加害行為は事業の執行につき行われる必要がある。スーパーの店員に株取引の権限がないことは明らかである。",
+      "適切。使用者は、加害者である被用者に対して、求償権を行使することができる。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 4●使用者責任 ＞ 1●使用者責任の意識",
+    "num": 56,
+    "source": "H26後",
+    "q": "使用者責任に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "私用で社用車を運転していた社員が事故を起こした場合、会社は使用者責任を負うことはない。",
+      "下請会社の社員が自動車事故を起こした場合、元請会社と下請会社の社員の間に指揮監督関係などの使用関係が認められなければ、元請会社が使用者責任を負うことはない。",
+      "派遣社員が、派遣先での業務中に自動車事故を起こした場合、派遣先が事故の被害者に対して使用者責任を負うことはない。",
+      "派遣社員が派遣先で横領行為を行った場合、派遣元が使用者責任を負うことはない。"
+    ],
+    "correct": 1,
+    "point": "使用者責任に関する基本的な知識を問う。",
+    "explains": [
+      "不適切。「事業の執行について」の要件は外形で判断される。",
+      "適切。使用者責任が認められるには、「使用関係」が必要である。",
+      "不適切。「使用関係」の要件においては、雇用契約関係の存在は不可欠ではなく、実質的な指揮監督関係があれば足りる。そうであるとすれば、派遣先が使用者責任を負う可能性もある。",
+      "不適切。派遣元が派遣社員の行為について使用者責任を負う場合がある（パソナ事件〔東京地裁平成8年6月24日判決〕、判例時報1601号125頁）。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 4●使用者責任 ＞ 1●使用者責任の意識",
+    "num": 57,
+    "source": "H24前",
+    "q": "使用者責任に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "使用者責任は、外部の者が、その使用者に対して責任を追及する場合に適用され、労働者が、同じ社内の労働者に対して不法行為を行った場合には、使用者責任は問題にならない。",
+      "会社の車を社員が私用で運転中に、交通事故を起こした場合、私用であっても会社が責任を問われる場合がある。",
+      "男性社員が、上司の男性の課長から私的なことで手伝いを要求され、それを断ったところ、社外で執拗に電話されたり、休日に追いかけ回す等の嫌がらせを受けた場合、会社は課長の行為についての使用者責任がある。",
+      "中小企業の町工場での労災事故において、会社の代表取締役が現場で指示をしていた場合には、労災事故の使用者責任が問われるのは会社であって、代表取締役ではない。"
+    ],
+    "correct": 1,
+    "point": "使用者責任の要件についてよく理解する。",
+    "explains": [
+      "誤り。使用者責任が成立するのは、その使用者の外部の者に対してだけではなく、内部の者についても成立する。",
+      "正しい。会社の車を運転することは、社員からすれば私用であったとしても、外形標準説に立てば、会社の車を社用で使っているように思われるので、使用者責任が成立する可能性が高い。",
+      "誤り。上司の課長の行為は私用での、しかも社外での休日の行為であり、事業の執行中とはいえず、使用者責任は成立しない。",
+      "誤り。会社が責任を問われるのはもちろん、代表取締役個人も代理監督者の責任を問われることがある。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 4●使用者責任 ＞ 1●使用者責任の意識",
+    "num": 58,
+    "source": "H27前",
+    "q": "使用者責任に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "従業員が、会社の所有している自動車を勝手に持ち出して、私用のために運転して自動車事故を起こした場合、会社は被害者に対して損害賠償する必要がある。",
+      "従業員が取引先の従業員と取引内容を巡って喧嘩になり、取引先の従業員を殴って怪我をさせた場合、加害者の勤務していた会社は取引先の会社に対して使用者責任を負う。",
+      "上司が部下にパワー・ハラスメントを行い、部下がうつ病となった場合、上司の不法行為責任及び会社の安全配慮義務違反の責任が問われることがあるが、会社の使用者責任が問われることはない。",
+      "元請業者の統括安全衛生責任者が専任されている建設現場では、下請業者の従業員の業務上の不法行為により使用者責任を負うのは、元請業者であって下請業者ではない。"
+    ],
+    "correct": 0,
+    "point": "使用者責任に関する基本的な知識を問う。",
+    "explains": [
+      "適切。選択肢のとおり。",
+      "不適切。加害者の勤務していた会社が使用者責任を負うのは、取引先の従業員である被害者に対してである。",
+      "不適切。会社は、上司の不法行為（パワハラ）について使用者責任を負う。",
+      "不適切。統括安全衛生責任者は、建設業において、元請の労働者及び下請の労働者の作業が同一の場所において行われることによって生ずる労働災害を防止するために安全衛生を統括管理する者であるが、実際の作業場の指揮命令が下請業者から行われていれば、下請業者は従業員の不法行為について使用者責任を負う。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 1●契約法の基礎 ＞ 3●契約に関する基本ルール",
+    "num": 59,
+    "source": "H26前",
+    "q": "契約書の基本ルールに関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "契約は、①申込みと承諾、②当事者の契約締結能力、③契約の有効性を争う事情の不存在、が確認されれば口頭だけでも有効に成立するから、実務上、書面にしておくことは重要ではない。",
+      "契約書は、その標題（タイトル）が契約書でなく、覚書、念書、合意書、約定書などでも有効であるが、無題のものは契約書としての効力は認められない。",
+      "契約当事者の民法上の責任としては、債務不履行責任と不法行為責任があり、債務不履行としては、不完全履行と履行不能の2種がある。",
+      "金銭債務に関しては、契約書中に債務不履行の際は強制執行を受けても異議がない旨の文言を定め、公正証書にしておけば、その公正証書は、判決と同じ効力を持ち、強制執行することができる。"
+    ],
+    "correct": 3,
+    "point": "契約書の基本ルールの理解度を問う。",
+    "explains": [
+      "不適切。口頭合意は水掛論になるので書面にしておくことは実務上重要である。",
+      "不適切。無題のものも契約書として有効である。",
+      "不適切。債務不履行には履行遅滞もある。これは実務上重要である。民法に規定があるのは、「履行遅滞（第412条）」及び「履行不能（第415条）」であり、「不完全履行」は民法上の規定はないが、債務不履行の一形態とされる。",
+      "適切。契約書を公正証書にしておくと、真正に成立した文書であると推定されるため、その契約成立・内容につき強い証拠力がある。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 1●契約法の基礎 ＞ 3●契約に関する基本ルール",
+    "num": 60,
+    "source": "H26後",
+    "q": "以下の事例に基づいた場合、売買契約に関する記述として適切なものは、次のうちどれか。\n\n＜事例＞\nA社はB社に対して、商品10個を1,000万円で販売することとし、2014年2月1日付で売買契約書を取り交わした。",
+    "choices": [
+      "この売買契約書には、商品の瑕疵担保につき何ら言及されていなかった。この場合、A社は、商品に関して瑕疵担保責任を負わない。",
+      "A社はこの売買契約書に「この契約の履行に関し、A社の責めに帰すべき事由により、B社に損害が生じた場合、B社は、A社に対し、商品の売買代金相当額を上限として、損害の賠償を求めることができる。」との条項を加えたところ、B社から削除するように求められた。民法では、債権者（B社）は債務者（A社）に対し、商品の売買代金相当額を超える損害賠償請求はできないとしており、この追加部分を削除しても、A社にとって不利になることはない。",
+      "B社からこの売買契約書に「いずれかの当事者がこの契約に違反した場合、相手方は何ら催告なくこの契約を解除することができる。」との条項を設けるよう要請された。このような条件は、民法の定めと異なるものの、原則として有効である。",
+      "この売買契約書には「この契約に関する紛争については、東京地方裁判所をもって専属の管轄裁判所とする。」との条項が設けられていた。このような条項は、民事訴訟法の定めに反するものであり、無効である。"
+    ],
+    "correct": 2,
+    "point": "売買の代表的な条項を例に、契約書において特約することにより、取引における法的リスクがどのように変動するかを問う。",
+    "explains": [
+      "不適切。A社とB社間の売買契約は商人間売買であることから、当事者間の売買契約書の中に特段、瑕疵担保責任に関する条項がない場合、商法第526条に定める瑕疵担保責任を負う。",
+      "不適切。民法第416条によれば、債務者は、通常損害及び予見可能な特別損害を賠償する責任があり、賠償額が売買代金相当額以内に限定される保証はない。",
+      "適切。解除に関する定めも任意規定であり、当事者間でこれと異なる条項にすることが認められている。",
+      "不適切。民事訴訟法第11条の定めにより、一定の条件を満たせば当事者は専属管轄を合意することができる。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
