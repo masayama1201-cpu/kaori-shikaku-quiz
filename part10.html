@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題91〜100）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題91〜100）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "H●紛争処理の基礎 ＞ 1●公正証書・内容証明 ＞ 1●公正証書とは",
+    "num": 91,
+    "source": "H26後",
+    "q": "公正証書の効力に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "公正証書には、確定日付としての効力はない。",
+      "私製の金銭消費貸借証書が、公証人により公正証書として作成された場合は、後日、その内容が真実に反する旨の主張はできない。",
+      "公正証書で契約されると、商事債権の消滅時効期間は10年に延長される。",
+      "公正証書は、金銭債務について証書の文言中に「直ちに強制執行を受けても構わない」旨が記載されないと債務名義としての効力を有しない。"
+    ],
+    "correct": 3,
+    "point": "「公正証書」の効力について正しい理解を求める。",
+    "explains": [
+      "不適切。公正証書は、確定日付のある証書とされている（民法施行法第5条第1号）。",
+      "不適切。公正証書は、私製証書より強い証拠力が与えられ、真正に成立したものと推定される（民事訴訟法第228条第2項）が、その内容が真実に反する場合まで有効とされる効力があるわけではない。真実に反することが証明されれば、公正証書が真正との推定は覆されることとなる。",
+      "不適切。公正証書として作成されたからといって、債権の性格が変わるものではない。5年の消滅時効期間とされる商事債権を公正証書にしても時効期間は5年である。",
+      "適切。公正証書は金銭債務に関しては、執行力がある（すなわち、債務名義の効力がある）といわれるが、全て当然にそのような効力が生じるのではなく、強制執行認諾文言を付した場合に限られる（民事執行法第22条第5号）。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 1●公正証書・内容証明 ＞ 4●内容証明郵便とは",
+    "num": 92,
+    "source": "H26前",
+    "q": "紛争処理の手段として利用される内容証明郵便に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "内容証明郵便は、郵便物の内容である文書について、差出人が相手方に、いつ、どのような内容のものを送付したかを、日本郵便株式会社が証明する制度である。",
+      "債権譲渡を受ける場合に、第三者に対抗するため承諾書に確定日付を付して先順位を確保することがあるが、内容証明郵便で債権譲渡を通知して確定日付の代わりとすることもできる。",
+      "債務者に対して裁判外で履行を請求する債権者の意思の通知として催告をする場合に、口頭による催告後6カ月を経過しても再度、配達証明付内容証明郵便により催告すれば時効中断の効力が生じる。",
+      "内容証明郵便の作成は字数や行数などにつき一定の条件を満たさないと内容証明の取扱いを受けることができないが、点字や電子化したものでも作成可能である。"
+    ],
+    "correct": 2,
+    "point": "内容証明郵便に関する理解度を問う。",
+    "explains": [
+      "適切。郵便法第48条。",
+      "適切。民法第467条第2項。",
+      "不適切。「催告」による時効中断は「6箇月以内に、裁判上の請求、支払督促の申立て…をしなければ、時効の中断の効力を生じない。」（民法第153条）から、たとえ「配達証明付内容証明郵便」という後日、裁判でも容易に証明可能な方法によってもさらに時効中断をすることはできない。",
+      "適切。点字内容証明郵便は平成4年6月4日に郵便規則が改正され、同年7月1日から、また電子内容証明郵便は平成13年2月1日から開始されている新たな内容証明郵便制度である。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 2●和解交渉 ＞ 2●損害賠償の交渉",
+    "num": 93,
+    "source": "H26後",
+    "q": "損害賠償の請求（交渉）に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "損害を受けた者が、一定の場合に、賠償義務者に対し、その損害を賠償して損害のなかったと同じ状態にするように任意又は法的に請求する債権を損害賠償請求権という。",
+      "損害賠償請求権は、直接法律によって生じることもあり、また契約（法律行為）により生じることもある。",
+      "交通事故などの不法行為に基づき損害賠償請求権が生じることもある。",
+      "債務不履行による損害賠償請求であっても、不法行為に基づく損害賠償請求であっても、いずれも賠償請求者にも過失があるときは、損害の衡平な分担から必ず過失相殺がされる。"
+    ],
+    "correct": 3,
+    "point": "損害賠償請求に関する基礎知識を理解する。",
+    "explains": [
+      "適切。選択肢のとおり。",
+      "適切。直接法律の規定から生じる損害賠償請求権の例としては、民法第117条、第198条、第200条、第442条第2項などあり、契約によるものとしては、損害担保契約や損害保険契約などがある。",
+      "適切。選択肢のとおり。",
+      "不適切。過失相殺の取扱いについては、債務不履行と不法行為とでは規定の内容を異にする。債務不履行では請求者に過失があると必ず過失を斟酌して請求権そのものを否認できる（民法418条）が、不法行為では過失相殺するかどうかは、裁判官の裁量である（最高裁昭和34年11月25日判決〔民集13-12-1562頁〕）。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 2●和解交渉 ＞ 2●損害賠償の交渉",
+    "num": 94,
+    "source": "H24後",
+    "q": "民事交通事故における損害賠償請求に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "治療関係費については、必要かつ相当な実費全額の請求ができる。",
+      "失業中の者、学生・生徒等の無職者については、休業損害が認められることはない。",
+      "交通事故により後遺症が認められる場合には、労働能力の低下の程度、収入の変化、将来の昇進・転職・失業等の不利益の可能性、日常生活の不便等を考慮して、後遺症による逸失利益の請求ができる。",
+      "交通事故により受傷した者は、入通院期間に応じて慰謝料請求ができるが、後遺症が認められる場合には、後遺症の程度や内容に応じて、入通院慰謝料とは別に慰謝料の請求ができる。"
+    ],
+    "correct": 1,
+    "point": "民事交通事故の損害賠償請求や交渉について、理解を求める。",
+    "explains": [
+      "適切。治療関係費について、必要性や相当性がないときは過剰診療、高額診療として、請求が否定される場合があるが、必要かつ相当な治療費の実費全額の請求はできる。",
+      "不適切。無職者のうち、失業者でも「労働能力並びに労働意欲のある者」は、平均賃金程度の休業損害が認められる場合があり、また学生・生徒については原則として認められないものの、アルバイト等の収入があれば認められる場合がある。",
+      "適切。選択肢のとおり。",
+      "適切。選択肢のとおり。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 2●和解交渉 ＞ 3●示談・和解契約",
+    "num": 95,
+    "source": "H27前",
+    "q": "訴えの提起前の和解手続であるいわゆる「即決和解」の申立てに関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "即決和解の申立ては、高額な土地の明渡しに関する紛争でも、金銭請求の額の多少に関係なく、常に簡易裁判所の管轄に属する。",
+      "即決和解の申立ては、民事上の紛争が目的物となるが、人事や家庭に関する紛争の手続には、なじまない。",
+      "即決和解の申立てを代理人により行うときは、その代理人は民事訴訟法の規定により弁護士資格を有するものでなければならない。",
+      "即決和解の申立ては、損害賠償請求権者など債権者が申立人となる場合が多いが、必ずしもその必要はなく、請求を受ける側（＝債務者）が申立人となることもある。"
+    ],
+    "correct": 2,
+    "point": "即決和解の申立てについての理解を求める。",
+    "explains": [
+      "適切。民事訴訟法第275条第1項。",
+      "適切。家事事件手続法第39条、第244条。",
+      "不適切。民事訴訟法第275条第1項により管轄が簡易裁判所とされていることから、同法第54条第1項但書による弁護士資格を有しない者も代理人となりうる。",
+      "適切。選択肢のとおり。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 2●和解交渉 ＞ 3●示談・和解契約",
+    "num": 96,
+    "source": "H24前",
+    "q": "裁判所における「和解」に関する記述として誤っているものは、次のうちどれか。",
+    "choices": [
+      "裁判所で「和解」が調うと、裁判所は和解内容を「和解調書」に記載する。「和解調書」は、確定判決と同一の効力を持つこととなり、債務名義として執行力を有する。",
+      "訴訟提起前に、当事者相互の譲歩によって紛争を解決する和解をして、裁判所に「和解の申立て」をするのが、「即決和解」と呼ばれる和解方法である。",
+      "「即決和解」においては、売掛金の請求等をする債権者側が、請求を受ける側の住所地を管轄する簡易裁判所に申し立てる必要がある。",
+      "「即決和解」は、公正証書の執行力の範囲が、金銭その他の代替物・有価証券に限られているのと異なり、不動産の明渡しをも対象としうるのが原則である。"
+    ],
+    "correct": 2,
+    "point": "裁判所による「和解」に関する「裁判上の和解」と「即決和解」についての正しい理解を求める。",
+    "explains": [
+      "正しい。民事訴訟法第267条及び民事執行法第22条。",
+      "正しい。民事訴訟法第275条。",
+      "誤り。即決和解の申立て自体は、債権者側のみではなく、請求を受ける側が申立人となることができる。",
+      "正しい。「即決和解」も「裁判上の和解」と同様に民事執行法第22条第7号にいう確定判決と同一の効力を有し、公正証書に関する同条第5号のような制限はない。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 3●保全措置・民事訴訟・調停・仲裁 ＞ 1●仮差押え・仮処分",
+    "num": 97,
+    "source": "H27前",
+    "q": "保全処分（仮差押え・仮処分）の申立ての準備に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "保全処分の申立てにあたっては、請求権である「被保全権利」の存在は必要不可欠であるが、保全理由である「保全の必要性」の充足までは、要求されていない。",
+      "保全処分の裁判がされるには「保全の必要性」が必要であるが、緊急な場合には、「被保全権利」の充足までは要求されない。",
+      "債権者が、被保全権利について既に債務名義を有しており、直ちに強制執行ができるときには、保全の必要性はないとして申立てが却下されるので、準備段階でチェックしておくべきである。",
+      "保全処分の裁判は、本案訴訟の暫定的な手続であるから、当事者の当事者能力や訴訟能力の具備までは必要とされない。"
+    ],
+    "correct": 2,
+    "point": "保全処分（仮差押え・仮処分）の要件についての理解を求める。",
+    "explains": [
+      "不適切。保全処分の裁判手続の要件は、「被保全権利」の存在と「保全の必要性」の両要件が不可欠である（民事保全法第13条第1項）。",
+      "不適切。アと同様。",
+      "適切。既に債務名義があっても、事実上若しくは法律上、即時に執行できないときは「保全の必要性」が認められるが、「直ちに強制執行ができるとき」は「保全の必要性」はない。",
+      "不適切。保全のための裁判手続においても当事者能力や訴訟能力は必要である（民事保全法第7条、民事訴訟法第28条）。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 3●保全措置・民事訴訟・調停・仲裁 ＞ 2●民事訴訟手続",
+    "num": 98,
+    "source": "H27後",
+    "q": "地方裁判所における民事訴訟手続の終了に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "A社がB社に対し売掛金請求の訴えを提起したので、口頭弁論期日が開始したが、A社としては訴えによる紛争解決の費用対効果を考慮してB社の同意を得ることなく、何時でも訴えを取り下げて訴訟を終了させることができる。",
+      "A社の売掛金請求の訴えにつきB社はA社の主張事実と異なる証拠等を有していたが、最初にすべき口頭弁論期日には反論等の準備が間に合わなかったので、答弁書を提出せず、所用があったため出頭もできなかった。裁判所は真実発見の使命があり、B社の反論や出頭を待って判決を言い渡すべきであるから訴訟手続を直ちに終了させることはできない。",
+      "A社の売掛金請求の訴えにつきB社が口頭弁論期日において請求の認諾をした場合、裁判所は判決の言渡しによることなく訴訟手続を終了させる。",
+      "B社はA社からの売掛金請求の訴えの訴状の送達を受けたので答弁書は提出したものの、最初にすべき口頭弁論期日には欠席したので、裁判所はいわゆる欠席判決を言い渡して訴訟手続を終了させることができる。"
+    ],
+    "correct": 2,
+    "point": "民事訴訟手続の「終了」に関する法的な取扱いについての理解を求める。",
+    "explains": [
+      "不適切。訴えは、判決が確定するまで、その全部又は一部を「取り下げる」ことができ（民事訴訟法第261条第1項）、裁判によらないで訴訟を終了させることができる。しかしながら、訴えの「取下げ」は、相手方（本問の場合B社）が本案において準備書面を提出し、弁論準備手続において申述し、又は口頭弁論をした後にあっては、相手方の「同意」を得なければその効力を生じない（同法第261条第2項）。",
+      "不適切。B社は「答弁書」を提出せず、しかも最初にすべき口頭弁論期日にも出頭しなかったのであるから、「口頭弁論において相手方（本問の場合A社）の主張した事実を争うことを明らかにしない場合に限り（A社の主張の）事実を自白したものとみなされる」（民事訴訟法第159条第1項）から、訴訟手続は終了される。B社としては事前に期日の変更申立て（同法第93条第3項）などにより対処することになる。",
+      "適切。「請求の認諾」も訴訟を裁判によらず終了させる場合の一つである（民事訴訟法第266条）。",
+      "不適切。被告であるB社は、最初にすべき口頭弁論期日に出頭しなかったものの、「答弁書」を提出していたのであるから、それを陳述したものとみなし、出頭した相手方（A社）に弁論させる（民事訴訟法第158条）。B社が期日に欠席しても直ちに自白の擬制とはならない（同法第159条第1項、第3項）ので「欠席判決を言い渡して訴訟手続を終了させる」ことはできない。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 3●保全措置・民事訴訟・調停・仲裁 ＞ 3●民事調停・仲裁",
+    "num": 99,
+    "source": "H27後",
+    "q": "民事調停と仲裁に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "民事調停は、民事に関する紛争について、当事者の互譲により条理にかない、実情に即した解決を図る裁判手続であり、裁判所は調停委員会で調停を行うのが原則である。",
+      "仲裁は、民事上の紛争又は将来において生じる一定の法律関係について当事者がその合意（仲裁合意）により第三者である仲裁人の判断によって紛争を解決する制度である。",
+      "民事調停が成立すると調書が作成され、記載された調停条項は裁判上の和解と同一の効力を有するので、調停調書は確定判決と同一の効力を有することになる。",
+      "仲裁人の下した仲裁判断は、裁判所の確定判決と同一の効力を認められているので、直ちに債務名義となり、強制執行も可能である。"
+    ],
+    "correct": 3,
+    "point": "民事調停と仲裁の制度的な違いについて理解を求める。",
+    "explains": [
+      "適切。民事調停法第1条、第2条、及び第5条により正しい。",
+      "適切。仲裁法第2条により正しい。",
+      "適切。民事調停法第16条及び民事訴訟法第267条により正しい。",
+      "不適切。仲裁人の仲裁判断だけでは直ちに債務名義とはならない。裁判所の確定した執行決定が必要とされている（民事執行法第22条6の2、仲裁法第45条、第46条）ので誤り。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 3●保全措置・民事訴訟・調停・仲裁 ＞ 3●民事調停・仲裁",
+    "num": 100,
+    "source": "H24前",
+    "q": "仲裁制度に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "仲裁制度は、民事上の紛争又は将来において生じる一定の法律関係について、当事者がその合意（仲裁合意）により、第三者である仲裁人の判断によって、紛争の解決を図る制度である。",
+      "仲裁制度においては、手続の進め方や解決案の基準について、民事訴訟制度と同様の厳格な定めがある。",
+      "仲裁制度による仲裁判断は、裁判所による裁判官の判断とは異なるので、確定判決と同一の効力まではない。",
+      "仲裁制度による仲裁判断がされた場合でも、当事者は、判断に異議あるときには、それに拘束されることなく、不服申立てができる。"
+    ],
+    "correct": 0,
+    "point": "仲裁制度についての正しい理解を求める。",
+    "explains": [
+      "正しい。選択肢のとおり。",
+      "誤り。仲裁機関における仲裁手続は、一定のルールがあるものの、民事訴訟制度のような厳格なものではない。",
+      "誤り。仲裁判断には確定判決と同一の効力がある（仲裁法第45条第1項）。",
+      "誤り。仲裁制度における仲裁判断に対しては、取消しの訴えにより、又は執行判決手続においてのみその効力を争うことができるものの、判決のような不服申立制度はなく、異議申立てはできない。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
