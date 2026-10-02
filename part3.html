@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題21〜30）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題21〜30）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 2●株式会社の設立 ＞ 1●設立手続",
+    "num": 21,
+    "source": "H24前",
+    "q": "株式会社の設立手続に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "株式会社の設立に必要な要件は、会社法において定められ、この要件を満たしているかどうかは、登記に際して法務局が審査することになっているので、株式会社の設立については、認可主義がとられているといえる。",
+      "株式会社の設立に際しては、定款を作成しなければならないが、公告の方法は、定款の絶対的記載事項であることから、定款に記載がないと、定款全体が無効になる。",
+      "紛らわしい商号（会社名）を排斥するため、同一市町村において、他人が登記した会社名で、同種の営業目的で会社を設立することは禁止される。",
+      "株式会社の設立方法は、発起設立と募集設立とに大別されるが、これらの方法によらず、株式会社の設立が行われる場合としては、新設合併、新設分割、株式移転がある。"
+    ],
+    "correct": 3,
+    "point": "企業法務にとって必須である設立手続の基礎知識を問う。",
+    "explains": [
+      "誤り。認可主義ではなく準則主義がとられ、法律の要件を備えていれば、当然に法人格が付される。",
+      "誤り。公告方法は絶対的記載事項ではない（会社法第27条、第37条）。",
+      "誤り。この類似商号禁止規定は会社法施行に伴い廃止された。",
+      "正しい。会社法第2条第28号、第30号、第32号。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 2●株式会社の設立 ＞ 1●設立手続",
+    "num": 22,
+    "source": "H27前",
+    "q": "株式会社の設立手続に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "会社法は、会社の設立について免許主義をとっており、会社法の設立にあたっては、行政官庁の許可を必要とする。",
+      "発起人とは、株式会社の設立を企画し、定款に署名した者をいうが、発起人の資格に制限はなく、行為能力のない者や法人でもよいと解されている。",
+      "定款の内容は、絶対的記載事項、相対的記載事項、任意的記載事項に分類されるが、相対的記載事項は、定款で定めないとその事項の効力が認められない事項をいう。",
+      "会社設立時における現物出資については、現物出資する額として定款に記載された額が500万円以下の場合には、検査役による調査は不要である。"
+    ],
+    "correct": 0,
+    "point": "株式会社の設立手続に関する知識の習得度合いを問う。",
+    "explains": [
+      "不適切。会社法は、会社の設立については準則主義をとっている。",
+      "適切。発起人の資格に制限はなく、行為能力のない者や法人でもよいと解されている。",
+      "適切。条文通り（会社法第29条）。",
+      "適切。条文通り（会社法第33条第10項）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 2●株式会社の設立 ＞ 12●現物出資・財産引受け・事後設立",
+    "num": 23,
+    "source": "H26前",
+    "q": "現物出資、財産引受け、事後設立に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "設立時の株式発行において、発起人に限らず、誰でも現物出資をすることができる。",
+      "現物出資と財産引受けは、変態設立事項であり、定款に記載しなければ効力を生じないが、事後設立は定款に記載しなくとも効力を生じる。",
+      "現物出資、財産引受け、事後設立はいずれも財産の評価次第で会社に損害を与えるおそれのあることから、裁判所が選任する検査役の調査が必要である。",
+      "事後設立の規制は、会社設立後2年以内に特定の財産を会社の純資産額の5％以上にあたる対価で引き受ける契約をする際に適用される。"
+    ],
+    "correct": 1,
+    "point": "現物出資、財産引受け、事後設立に関する基礎知識を問う。",
+    "explains": [
+      "不適切。設立時においては、発起人のみが現物出資を許される。",
+      "適切。会社法第28条第1号、第2号、第467条第1項。",
+      "不適切。事後設立の場合は、検査役は不要である（会社法第33条第1項、第467条第1項）。",
+      "不適切。純資産額の5％以上ではなく、20％超の対価で譲り受ける契約をする際に事後設立として規制される（会社法第467条第1項第5号）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 1●会社の役員・会計監査人の選任・辞任・解任",
+    "num": 24,
+    "source": "H24後",
+    "q": "定款及び取締役・監査役の終任に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "定款の絶対的記載事項は、会社の利害関係人にとって重要なものであることから、全て登記事項とされている。",
+      "定款は会社の根本規則であることから、定款変更の際には、公証人の認証が必要とされる。",
+      "会社法に定める欠格事由が生じた取締役や監査役は、直ちにその地位を失うことから、辞任又は解任の手続は不要である。",
+      "取締役や監査役と会社とは委任関係にあることから、取締役や監査役はいつでも辞任することができ、それによって会社に損害を与えたとしても、会社に対する損害賠償責任を負うことはない。"
+    ],
+    "correct": 2,
+    "point": "定款及び取締役・監査役の選任に関する基礎知識を問う。",
+    "explains": [
+      "不適切。設立に際して出資される財産の価額又はその最低額及び発起人の氏名又は名称と住所は、定款の絶対的記載事項であるが、登記事項ではない（会社法第27条第4号、第5号、第911条第3項）。",
+      "不適切。認証が必要なのは原始定款作成時のみである（会社法第30条第1項）。",
+      "適切。選択肢のとおり。",
+      "不適切。株式会社と役員は委任に関する規定に従うことから、取締役、監査役はいつでも辞任できる。ただし、取締役、監査役が会社にとって不利な時期に辞任して会社に損害を与えた場合は、損害賠償責任を負うことがある（民法第651条第2項、会社法第330条、民法第651条第1項）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 1●会社の役員・会計監査人の選任・辞任・解任",
+    "num": 25,
+    "source": "H26前",
+    "q": "取締役及び監査役に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "取締役と監査役の選任は、株主総会の普通決議で行われる。",
+      "取締役や監査役を解任するためには株主総会の特別決議が必要である。",
+      "取締役や監査役と会社とは委任関係にあるので、取締役や監査役はいつでも辞任できる。",
+      "取締役の選任方法の特例として累積投票がある。"
+    ],
+    "correct": 1,
+    "point": "役員のうち取締役と監査役について、その選任と退任に関する基礎知識を問う。",
+    "explains": [
+      "適切。会社法第329条第1項、第341条。",
+      "不適切。監査役の解任は特別決議が必要だが（会社法第309条第2項第7号）、取締役（累積投票により選任された取締役を除く）の解任は普通決議でよい（同法第341条）。",
+      "適切。会社法第330条、民法第651条第1項。",
+      "適切。会社法第342条。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 1●会社の役員・会計監査人の選任・辞任・解任",
+    "num": 26,
+    "source": "H24前",
+    "q": "新株発行、役員の選任と解任、定款変更に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "新株発行は、会社の資金調達のために行われるものであるから、会社法上、募集株式の発行として規制されており、それ以外の新株発行を行うことは認められない。",
+      "取締役の選任に関する議案を、株主総会に提出するには、取締役（取締役が2人以上の場合その過半数）又は取締役会の同意が必要である。",
+      "役員は、株主総会の決議により、正当な理由がなくとも解任することができるが、正当な理由なく解任された役員は、会社に対し、解任によって生じた損害の賠償を請求することができる。",
+      "定款の変更は、原則として、株主総会において、議決権を行使できる株主の議決権の過半数を有する株主が出席し、その出席株主の議決権の4分の3以上による承認決議が必要である。"
+    ],
+    "correct": 2,
+    "point": "新株発行・役員の選任と解任・定款の変更に関する実務上有用な法的知識を問う。",
+    "explains": [
+      "誤り。「募集株式の発行」以外にも株式無償割当て、吸収合併、吸収分割、株式交換等の場合において新株発行を行うことができる。",
+      "誤り。監査役選任議案の場合は監査役又は監査役会の同意を得る必要があるが、取締役選任議案についてはこのような規制はない。",
+      "正しい。選択肢のとおり（会社法第339条第2項）。",
+      "誤り。後段は「4分の3以上」ではなく「3分の2以上」の承認でよい（特別決議。会社法第309条第2項11号、第466条）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 1●会社の役員・会計監査人の選任・辞任・解任",
+    "num": 27,
+    "source": "H24前",
+    "q": "株式会社の役員に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "定款自治の原則から、自由に定めた定足数を定款に規定したうえで、その過半数の賛成を得れば役員は選任できる。",
+      "補欠監査役をあらかじめ選任しておけば、監査役が欠けた場合あるいは会社法又は定款で定めた員数を欠いた場合、株式会社は、補欠監査役を監査役に就任させることができる。",
+      "役員は、任期満了による退任と同様、株主総会において、株主の承認を得たうえで、はじめて任期半ばでも辞任ができる。",
+      "役員の解任については、常に、株主総会の特別決議によらなければならない。"
+    ],
+    "correct": 1,
+    "point": "会社を経営する役員の選任、辞任、解任及び補欠監査役等について、基本的な知識を確認する。",
+    "explains": [
+      "誤り。定款で役員選任のための定足数を定めたとしても、3分の1を下回ることはできない（会社法第341条）。",
+      "正しい。会社法第329条第2項、第336条第3項。",
+      "誤り。役員は原則として、いつでも辞任できる。",
+      "誤り。監査役及び累積投票で選出された取締役の解任は特別決議を要するが、それ以外の場合は定款に格別の定めがなければ、株主総会の普通決議をもって行うことができる（会社法第309条第2項第7号、第343条第4項、第339条第1項）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 2●新株発行",
+    "num": 28,
+    "source": "H27前",
+    "q": "新株発行、資本金の減少に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "新株発行は実務上、株主割当て、公募、第三者割当ての3種に分類されるが、会社法上はいずれも募集株式の発行に該当する。",
+      "資本金の額を減少するには、原則として株主総会の普通決議が必要である。",
+      "株主割当て以外の方法で新株を「特に有利な払込金額」で発行する場合は、既存の株主の利益保護のため、株主総会の普通決議が必要となる。",
+      "株式会社が資本金の額を減少する場合においても、一定の場合は会社債権者異議手続の必要がない。"
+    ],
+    "correct": 0,
+    "point": "新株発行、資本金の減少、会社の機関についての基本的知識を問う。",
+    "explains": [
+      "適切。実務上、新株発行は株主割当て、公募、第三者割当ての3つに分類されるが、会社法上は全て募集株式の発行に該当する。",
+      "不適切。資本金の額を減少するには、原則として株主総会の特別決議が必要（会社法第447条第1項、第309条第2項第9号）。",
+      "不適切。公開会社が株主割当て以外の方法で新株を「特に有利な払込金額」で発行する場合は、既存の株主の利益保護のため、株主総会の特別決議が必要（会社法第199条第2項、第201条第1項、第309条第2項第5号）。",
+      "不適切。資本金の額を減少する場合は、必ず会社債権者保護手続が必要（会社法第449条第1項）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 2●新株発行",
+    "num": 29,
+    "source": "H27後",
+    "q": "新株発行及び資本金の減少に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "株主割当ての方法により新株を発行する場合、株主はその有する株式の数に応じて募集株式の割当てを受ける権利を有する。",
+      "公開会社が募集株式を発行する場合、募集事項は、原則として、取締役会の決議で決定することができる。",
+      "資本金減少は、債権者保護手続が終了していなくても、株主総会で定めた効力発生日に効力が生じる。",
+      "非公開会社が第三者割当ての方法により新株を発行する場合、株主総会の特別決議を経なければならない。"
+    ],
+    "correct": 2,
+    "point": "会社法下における、新株発行の仕組みと資本金の減少について、基本的な知識の整理を行う。",
+    "explains": [
+      "適切。募集株式を募集する場合、株主に株式の割当てを受ける権利を与えることができ、この場合を株主割当てといい、この場合、株主は、持株数に応じて募集株式の割当てを受ける権利を有する（会社法第202条第1項、第2項）。",
+      "適切。公開会社では取締役会で、募集事項を決定する（会社法第199条、第201条）。ただし、株主割当以外の方法で募集株式を「特に有利な払込金額」で発行する場合は、株主総会の特別決議が必要となる（会社法第201条第1項、第199条第2項、第309条第2項第5号、第202条第5項）。",
+      "不適切。株主総会で定めた効力発生日に効力が生じるのが原則であるが、この時点で債権者保護手続が終了していないときは、これが終了した時点が効力発生日となる（会社法第449条第6項）。",
+      "適切。非公開会社では、既存株主の利益保護のため、募集事項の決定には株主総会の特別決議が必要とされる（会社法第199条第2項、第200条第1項、第3項、第309条第2項第5号）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 2●新株発行",
+    "num": 30,
+    "source": "H26後",
+    "q": "募集株式の発行等に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "新たに株式を発行する場合において、金銭以外の財産を出資の目的とすることは認められない。",
+      "公開会社においては、株主総会の決議を得ることなく、取締役会の決議のみによって募集株式の数や払込金額等を決定することができる場合もある。",
+      "会社が自己株式を保有している場合には、その自己株式を全て処分又は消却した後でなければ、新たに株式を発行することはできない。",
+      "募集株式の払込金額が株式を引き受ける者に特に有利な金額である場合、その募集株式の発行は無効である。"
+    ],
+    "correct": 1,
+    "point": "募集株式の発行等に関する基本的な理解度を確認する。",
+    "explains": [
+      "不適切。金銭による出資のほか、現物出資も認められる（会社法第207条）。",
+      "適切。公開会社においては、有利発行に該当する場合を除き、取締役会決議によって募集事項を決定することができる（会社法第201条第1項）。",
+      "不適切。自己株式を保有している場合には、新株の発行又は自己株式の処分のいずれの方法によって資金調達を行うことも認められる。",
+      "不適切。募集株式を引き受ける者に特に有利な金額である場合、募集株式の発行が無効となるわけではないが、取締役は、当該払込金額でその者の募集をすることを必要とする理由を、株主総会において説明しなければならない（会社法第199条第3項）。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
