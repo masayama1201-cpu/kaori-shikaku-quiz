@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題11〜20）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題11〜20）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 3●法令解釈・用語の基礎",
+    "num": 11,
+    "source": "H24後",
+    "q": "法令解釈に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "法令解釈は通常、法規的解釈と学理的解釈の2つに大別されるが、一般に法令解釈というときは、法規的解釈を指す。",
+      "学理的解釈は文理解釈と論理解釈に大別されるが、「もちろん解釈」は文理解釈に分類される。",
+      "文理解釈を行う際に特に注意すべきことは、①立法目的の重視、②法秩序全体との調和、③結果の妥当性である。",
+      "縮小解釈、反対解釈、拡張解釈、類推解釈は、いずれも論理解釈の一種である。"
+    ],
+    "correct": 3,
+    "point": "企業法務において役に立つ法令解釈の基本知識の理解度を問う。",
+    "explains": [
+      "不適切。一般に法令解釈というとき、法規的解釈ではなく学理的解釈を指す。",
+      "不適切。「もちろん解釈」は、文理解釈の一種ではなく、論理解釈の一種である。",
+      "不適切。法令の解釈に際しては、まず何よりもその文言に忠実に、その文脈に即応してその意味するところを読み取るようにしなければならない。その意味では法令の解釈にあたっては文理解釈が基本といえる。設問の①、②、③の注意点は、文理解釈ではなく、論理解釈である。",
+      "適切。論理解釈は、「条理解釈」とか「目的論的解釈」と呼ばれる。論理解釈の手法としては、「拡張解釈」、「縮小解釈」、「反対解釈」、「類推解釈」、「もちろん解釈」などがある。論理解釈を行う際に注意すべきことは、（ⅰ）立法目的の重視、（ⅱ）法秩序全体との調和、（ⅲ）結果の妥当性である。"
+    ]
+  },
+  {
+    "cat": "A●企業法務の基礎 ＞ 1●企業法務に関する基礎 ＞ 4●法体系と法律文献調査",
+    "num": 12,
+    "source": "H24後",
+    "q": "法体系と法律文献の調査に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "法令には、慣習法は含まれない。",
+      "判例の検討を行うにあたっては、判決の要旨のみならず、その判決が前提とする認定事実についても調査する必要がある。",
+      "判例批評は、当該判例が今後どのように展開しそうであるかを予想する意味で参考になるので、企業法務にとって有益なものである。",
+      "判例の存在しない事柄についての学説は、単なる学者等の意見にすぎないので実務上の参考にならないというべきである。"
+    ],
+    "correct": 3,
+    "point": "法体系と法律文献調査に関する基礎知識を問う。",
+    "explains": [
+      "適切。慣習法は、不文法（非制定法）の一種である。長期間にわたって社会生活の中で行われてきた慣習が、繰り返し行われているうちに、その慣習に従うことが、社会の秩序維持のために必要だと社会一般に意識されるようになったときに慣習法となる。",
+      "適切。判例を正しく知るには、裁判所はどんな事例のどんな論点に対してどんな判断を示したのか、ということが重要なのである。したがって判例の要旨とか、その一部のみで判例を判断してはならない。判決における事実関係の部分、事案の争点の部分を正しく把握したうえで、判決理由における裁判所の法的判断を理解することが必要である。",
+      "適切。判例は、先例としての事実上の拘束力を持つものであり、企業法務においてもきわめて重要なものである。その判例が何をいっているのか、どういう問題点があるのか、従前の判例とはどういう関係になり、今後どのように展開しそうであるのか、ということは企業法務に大きな影響があるからである。したがって、特定の判例を取り上げて、これを研究・分析した判例批評は、企業法務が当面する法律問題の解決のためにたいへん有用なものである。",
+      "不適切。このような場合でも学説は法令解釈などの実務上参考になる。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 1●会社と株式会社 ＞ 2●会社の種類",
+    "num": 13,
+    "source": "H26後",
+    "q": "会社の種類、株式会社の区分、有限責任事業組合に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "会社法上の会社には、株式会社と持分会社の2つの類型がある。",
+      "株式会社は、会社法上、資本金又は負債の合計額に応じて大会社、中会社又は小会社の3つの類型に区分されている。",
+      "会社法は、定款に株式譲渡制限の定めがある株式会社かどうかを基準として、全ての種類の株式について譲渡制限がある株式会社以外の株式会社を公開会社と定義している。",
+      "有限責任事業組合とは、会社ではないが株式会社と同じく事業体の構成員（組合員）が、有限責任である事業体である。"
+    ],
+    "correct": 1,
+    "point": "会社の種類、株式会社の区分、有限責任事業組合の基礎知識を問う。",
+    "explains": [
+      "適切。会社法第2条1号、第575条第1項。",
+      "不適切。会社法上、資本金の額が5億円以上又は負債の合計額が200億円以上の株式会社は「大会社」とされ（会社法第2条第6号）、この大会社とそれ以外の会社の2種類に区分される。大中小会社の区分は廃止された。",
+      "適切。会社法第2条第5号。",
+      "適切。有限責任事業組合は、株式会社あるいは合同会社と異なり民法上の組合であり法人格を有しないが、株式会社や合同会社などと同じく事業体のメンバーが有限責任である事業体であり、有限責任事業組合契約に関する法律に基づき設立されるものである。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 1●会社と株式会社 ＞ 2●会社の種類",
+    "num": 14,
+    "source": "H24後",
+    "q": "会社の種類に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "合資会社の社員は、会社に出資しており出資額に応じた持分を有するから、合資会社は持分会社であるが、合名会社は、社員の出資を伴わないことから、持分会社ではない。",
+      "会社法の施行に伴い、既存の有限会社は、特段の手続を要せず会社法上の株式会社として存続することとなった。",
+      "合同会社は有限責任社員のみからなる持分会社なので、社員になるには、株式会社の場合と同じく全額出資が必要である。",
+      "会社法上の公開会社は上場会社と同義ではない。すなわち、上場会社は公開会社であるが、上場会社ではない公開会社も存在しうるからである。"
+    ],
+    "correct": 0,
+    "point": "会社の種類に関する基礎知識を問う。",
+    "explains": [
+      "不適切。合名会社も出資を伴い、持分会社である。会社法第575条第1項。",
+      "適切。選択肢のとおり。",
+      "適切。会社法第578条。",
+      "適切。公開会社とは、通常は上場会社等を意味することが多いが、会社法における公開会社の定義はこれとは異なる。公開会社以外の株式会社は一般に「非公開会社」とか「株式譲渡制限会社」と呼ばれるが、厳密にいうなら「全株式譲渡制限会社」と呼ぶべきものである。要するに、「公開会社」とは「全株式譲渡制限会社」以外の株式会社のことをいう。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 1●会社と株式会社 ＞ 3●株式会社の特質",
+    "num": 15,
+    "source": "H26前",
+    "q": "株式会社に対する規制の特色に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "上場した株式会社は、多数の者から出資を受け、利害関係者も広範囲にわたるので、広範な情報開示が要求されている。",
+      "株式会社では、出資者（株主）と業務執行を行う者とが分離することが予想されるから、会社法は、株主保護のため、事業活動の意思決定と執行及び監査・監督について、詳細な規定を置いている。",
+      "会社法は、株式会社の多数の利害関係者を保護するために、取締役や監査役等に一般の不法行為責任や債務不履行責任よりも厳しい民事責任を課すことで、会社債権者についての特別な保護規定を不要としている。",
+      "株式会社について、会社法は利害関係者を保護するために、取締役、監査役等、業務執行や監査を行う者に対する罰則規定を置いている。"
+    ],
+    "correct": 2,
+    "point": "株式会社の特質及び株式会社に対する規制の特色についての理解度を問う。",
+    "explains": [
+      "適切。会社法条文全体。",
+      "適切。会社法条文全体。",
+      "不適切。会社法は、会社債権者の保護のための特別の規定、すなわち会社債権者の異議手続の規定（会社法第449条、第499条、第789条、第799条、第810条など）を置いている。",
+      "適切。会社法条文全体。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 1●会社と株式会社 ＞ 7●合同会社と有限責任事業組合",
+    "num": 16,
+    "source": "H27後",
+    "q": "合同会社及び有限責任事業組合に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "合同会社は、無限責任社員と有限責任社員の両方からなる持分会社である。",
+      "合同会社は、業務を執行する社員を限定することはできず、業務執行の意思決定は常に社員の過半数をもって行う。",
+      "有限責任事業組合は、民法上の組合であり法人格を有する。",
+      "有限責任事業組合は、法人税が課税されず、構成員課税（パス・スルー課税）の適用を受けるという特徴を有する。"
+    ],
+    "correct": 3,
+    "point": "合同会社及び有限責任事業組合に関する基本的な知識を問う。",
+    "explains": [
+      "不適切。合同会社の出資者（社員）は、全員有限責任社員である（会社法第576条第4項）。",
+      "不適切。合同会社の業務を執行する社員は、定款で定めておくことによって、業務を執行できる者を限定することもできる（会社法第591条第1項）。",
+      "不適切。有限責任事業組合は民法上の組合であり法人格を有しない。",
+      "適切。有限責任事業組合は構成員全員が有限責任で、法人税は課税されず、構成員課税の適用を受けるという特徴を有する。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 1●会社と株式会社 ＞ 7●合同会社と有限責任事業組合",
+    "num": 17,
+    "source": "H24前",
+    "q": "会社法上の会社に関する記述として誤っているものは、次のうちどれか。",
+    "choices": [
+      "株式会社は、出資持分が株式という細分化された割合的単位とされ、株式は不発行の場合のほか、株券という有価証券に表章されるか、あるいは振替制度が適用される。",
+      "合名会社は、社員の全員が、会社債権者に対して、無限の責任を負うものであるが、法人格は認められている。",
+      "合資会社は、無限責任社員と有限責任社員の両方からなる会社である。",
+      "合同会社は、機関として最低1名の取締役の設置が必要である。"
+    ],
+    "correct": 3,
+    "point": "会社法上の会社に関する実務上有用な法的知識を問う。",
+    "explains": [
+      "正しい。株式会社では、出資持分（株式）の譲渡性が高められている。すなわち、出資持分が株式という細分化された割合的単位とされ、株券という有価証券に表章されるのが通常である。",
+      "正しい。会社法上の会社は、いずれも法人である（会社法第3条、第576条第2項）。",
+      "正しい。会社法第576条第3項。",
+      "誤り。取締役の設置は必要とされない。機関について株式会社のような規制はない。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 2●株式会社の設立 ＞ 1●設立手続",
+    "num": 18,
+    "source": "H27後",
+    "q": "株式会社の設立手続に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "株式会社の設立方法には、発起設立と募集設立がある。募集設立は、発起設立よりも手続が簡易なので、小規模な会社や大企業の子会社等の設立には適している。",
+      "株式会社の設立にあたり作成する定款は、法定の事項を記載して発起人の全員が署名又は記名押印することで効力が生じる。",
+      "発起人は、出資の履行が完了した後、遅滞なく、設立時取締役、設立時監査役等を選任しなければならない。なお発起設立の場合、選任にあたり創立総会の決議は不要である。",
+      "株式会社はその設立に際して、支店を設ける場合でも本店所在地における設立登記をすればよく、支店の所在地における登記は不要である。"
+    ],
+    "correct": 2,
+    "point": "株式会社の設立手続についての基本知識を問う。",
+    "explains": [
+      "不適切。募集設立は株主の募集や創立総会の手続が必要となるので、発起設立より手続が複雑であり、小規模な会社や大企業の子会社等の設立の場合は発起設立が適している。",
+      "不適切。株式会社の設立時に作成する定款は公証人役場において公証人による定款の認証を受けなければ効力を生じない（会社法第30条第1項）。",
+      "適切。発起人は、出資の履行が完了した後、遅滞なく、設立時取締役、設立時監査役等を選任しなければならない（会社法第38条、第39条）。募集設立の場合は、選任にあたり創立総会の決議が必要とされる（会社法第88条）。",
+      "不適切。会社の設立に際して支店を設けた場合、当該支店が本店の所在地を管轄する登記所の管轄区域内にある場合を除き、本店の所在地における設立の登記をした日から2週間以内に支店の所在地において登記をしなければならない（会社法第930条第1項第1号）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 2●株式会社の設立 ＞ 1●設立手続",
+    "num": 19,
+    "source": "H26前",
+    "q": "株式会社の設立に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "株式会社の設立には発起設立と募集設立の2種があるが、いずれの方法の場合でも発起人は2人以上必要である。",
+      "定款の記載事項には、絶対的記載事項、相対的記載事項、任意的記載事項の3種があるが、絶対的記載事項は登記が必要である。",
+      "最初の定款は原始定款と呼ばれるが、原始定款には発起人が署名又は記名捺印（電子署名でもよい）することで設立手続上は十分である。",
+      "株式会社の設立には登記が必要である。"
+    ],
+    "correct": 3,
+    "point": "株式会社の設立についての理解力を問う。",
+    "explains": [
+      "不適切。会社法上発起人の人数は定められていない。",
+      "不適切。例えば発起人の氏名又は名称と住所は定款の絶対的記載事項であるが、登記事項ではない（会社法第27条第1号〜第5号、第911条第3項）。",
+      "不適切。原始定款は、発起人が署名又は記名押印（電子署名でもよい）したうえで、公証人の認証を受けなければ効力を生じない（会社法第30条第1項）。",
+      "適切。会社は、設立の登記をすることによって成立する（会社法第49条）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 2●株式会社の設立 ＞ 1●設立手続",
+    "num": 20,
+    "source": "H26後",
+    "q": "株式会社の設立手続に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "株式会社の設立には募集設立と発起設立の2種類があるが、実務上は募集設立が主流である。",
+      "株式会社の定款には、絶対的記載事項のほか、定款に記載しなければ効力が生じない事項（相対的記載事項）が記載される。それ以外の事項も、会社法の規定に反しない限り、定款に記載することができる。",
+      "株式会社は、出資が全額払い込まれ、創立総会が終了し、会社の実態が出来上がった段階で、法人格を取得する。",
+      "定款の認証は、定款が真正に作成され、かつ内容が適法であることを確保するために登記所において行われるものである。"
+    ],
+    "correct": 1,
+    "point": "株式会社の設立手続、定款、設立会社の基礎知識を問う。",
+    "explains": [
+      "不適切。実務上は手続が簡単な発起設立が主流である。",
+      "適切。会社法第26条〜第29条。",
+      "不適切。設立登記により法人格を取得する（会社法第49条）。",
+      "不適切。公証人により行われるものである（会社法第30条第1項）。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
