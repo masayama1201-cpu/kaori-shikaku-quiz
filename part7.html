@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題61〜70）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題61〜70）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "E●契約法務の基礎 ＞ 1●契約法の基礎 ＞ 3●契約に関する基本ルール",
+    "num": 61,
+    "source": "H24後",
+    "q": "契約の基礎に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "遠隔地間における契約の場合、民法上、申込みの意思表示は相手方に到達したときにその効力が生じ、そして、申し込んだ者に承諾の意思表示が到達したときにその契約が成立する。",
+      "契約の無効とは、契約が有効要件を欠く場合に、効力がはじめから発生しないことをいうが、当事者がこれを追認すれば、契約ははじめから有効となる。",
+      "停止条件付契約とは、一定の条件が成就することによって、効力が発生すると定められている契約のことをいう。",
+      "片務契約とは、当事者の一方のみに債務が発生したり、当事者双方の債務が対価的意義を有しない契約のことをいうが、原則として、民法における売買に関する規定が準用されることに留意すべきである。"
+    ],
+    "correct": 2,
+    "point": "契約の有効要件等、基本的な概念についての理解度を測る。",
+    "explains": [
+      "不適切。民法上、承諾の意思表示は、承諾の通知を発信したときに契約が成立する。",
+      "不適切。追認は「契約の無効」においては認められない。「取消し」事由に該当する場合は追認が認められ、契約が有効となる。",
+      "適切。法律効果が発生する条件のことを「停止条件」といい、対して、ある条件が成立することによって法律効果が消滅する条件のことを「解除条件」という。",
+      "不適切。民法上、売買に関する規定が準用されるのは有償契約である（民法第559条）。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 1●契約法の基礎 ＞ 19●契約の種類",
+    "num": 62,
+    "source": "H24前",
+    "q": "典型契約の性質に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "民法の雇用の規定は、労働基準法や労働契約法により、大きく修正されている。",
+      "民法上、売主が目的物の引渡しを完了するまでは、買主は、いつでも損害を賠償して売買契約を解除できる。",
+      "民法上、請負契約においては、請負人は、注文者の請求があれば、いつでも請負事務処理の状況を報告しなければならない。",
+      "建物の所有を目的としない土地の賃貸借については、民法の規定のほか、借地借家法が適用される。"
+    ],
+    "correct": 0,
+    "point": "典型契約の性質に関する実務知識を問う。",
+    "explains": [
+      "正しい。選択肢のとおり。",
+      "誤り。売買契約においては、このような解除権は認められていない。",
+      "誤り。請負については報告義務はない。報告義務のあるのは委任の場合である（民法第645条）。",
+      "誤り。建物の所有を目的としない土地の賃貸借については借地借家法の対象外である（民法第1条）。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 1●契約法の基礎 ＞ 21●基本契約と個別契約",
+    "num": 63,
+    "source": "H24前",
+    "q": "システム開発契約における基本契約と個別契約に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "システム開発契約の場合、必ず基本契約と個別契約を別々に作成しなければならない。",
+      "基本契約で定められた条項と個別契約で定められた条項とで、解釈が矛盾するような場合には、基本契約で定められた条項を優先すべきである。",
+      "支払条件等の基本条件は、通常、基本契約で定めるが、個別の取引ごとに条件を変える場合には、個別契約にてこれらの条件を定めることができる。",
+      "基本契約の締結時に、完成物の権利の帰属について当事者間で合意できなかったとしても、個別契約で定めることができるので、システム開発に着手することが望ましい。"
+    ],
+    "correct": 2,
+    "point": "基本契約と個別契約の基本的概念や構成のあり方についての理解度を測る。",
+    "explains": [
+      "不適切。継続的なシステム開発でないような場合は、基本契約と個別契約を分けて構成せずに、単発の契約にする場合もある。",
+      "不適切。基本契約と個別契約とで解釈が矛盾するようなことを想定し、どちらの条項を優先するか「優先性」を基本契約で定めておくべきである。優先性の定め方次第で、個別契約の条項を優先する場合もある。",
+      "適切。支払条件などの基本条件は、通常基本契約で定めるが、個別の取引ごとに合意条件が異なる場合もあり、当事者間でそれを了解できる場合は、個別契約にて変更する場合もある。",
+      "不適切。基本契約を定める際に、完成物の権利の帰属等、今後の事業に大きな影響を与えかねないような基本条項について、当事者間で合意できなかった場合、それを個別契約にて定めることにして問題を先延ばしにすると、システム開発直前になっても条件が合意できない可能性が高くなり、システム開発が停止したり、又は後に権利関係で争いが起こることにも繋がるので避けるべきである。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 2●基本的な契約に関する契約法の基礎 ＞ 1●売買",
+    "num": 64,
+    "source": "H24後",
+    "q": "動産売買契約に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "売買契約は、契約の分類上、有償契約であり、かつ、要物契約に該当する。",
+      "不特定物の売買の場合、買主が商品の引渡しを受けたが数量が不足していたり、一部が滅失していたときには、商品又は代替品の給付請求はできないが、損害賠償請求をすることができる。",
+      "民法上、隠れたる瑕疵に関しては瑕疵担保責任に基づき損害賠償請求と契約目的が達成できない場合の解除が定められているが、代替品の提供・修補・代金減額請求等についても契約書に規定することは可能である。",
+      "商人間で継続的に行われている売買において、買主から発注書が交付された後の時点で、売主として受注したくない場合には、注文請書を発行しなければよい。"
+    ],
+    "correct": 2,
+    "point": "動産売買契約の基礎に関する理解度を測る。",
+    "explains": [
+      "不適切。売買契約は、有償・双務・諾成契約に分類される。諾成契約とは、当事者間での合意のみによって成立する契約をいい、対して、要物契約とは、消費貸借契約等のように物の引渡しを要する契約をいう。",
+      "不適切。不特定物売買の場合、数量が不足していたり、一部が滅失していたときは、担保責任の問題ではなく、不完全履行として商品の給付を請求することができる。",
+      "適切。契約実務上、買主の立場に立った場合、瑕疵担保責任に基づく請求は、損害賠償、契約解除のみではなく、代替品の提供・修補・代金減額請求等についても規定し、柔軟にリスクヘッジできるようにするべきである。",
+      "不適切。売主が、平常取引をする買主から契約の申込みを受けた場合、遅滞なく諾否の通知を行わなかったときは、当該申込みを承諾したものとみなされる（商法第509条）。契約実務上、注文請書の発行をもって売主の承諾とし、契約の成立とするように規定するべきである。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 2●基本的な契約に関する契約法の基礎 ＞ 1●売買",
+    "num": 65,
+    "source": "H27後",
+    "q": "以下の＜事例＞に基づき、売買契約に関する記述として適切なものは、次のうちどれか。\n\n＜事例＞\nA社（売主）とB社（買主）は、次のとおり売買契約を締結した。なお、特に記載がない限り、これ以外の契約条件についての合意はないものとする。\n・品名：燃料電池（X社製汎用品）\n・数量：200台\n・売買代金：20,000,000円（消費税含む）\n・納期：平成27年10月12日\n・引渡場所：B社指定場所\n・支払期限：平成27年11月30日\n・損害賠償額の予定：売買代金の30％",
+    "choices": [
+      "商品代金の支払期日が到来したにもかかわらず、B社より支払いがなされなかったので、A社はB社に対し、商事法定利率である年14.6％の遅延利息を請求した。",
+      "A社は、B社に対する売掛債権をC社に譲渡することを検討したが、契約上債権を譲渡できる旨の定めはなかったので、A社は債権をC社に譲渡することはできない。",
+      "商品がA社側の事情により納期どおりの納入が不可能となり、B社は他社から同じ商品を調達して販売したが、A社との合意価格より高く購入せざるを得なかった。B社はこの差額をA社に請求しようとしたが、あらかじめ合意していた損害賠償額を超過したため、超過額分の請求をすることはできない。",
+      "納入された商品が使用中に突然発火して、建物の一部が燃えてしまった。B社は、A社に損害賠償請求を検討しているが、法人であるB社は製造物責任法に基づく責任を追及できない。"
+    ],
+    "correct": 2,
+    "point": "動産売買契約を例に取り、基礎的な法的知識を問う。",
+    "explains": [
+      "不適切。契約上の取決めがなくとも、期日に支払わないときは法定利率による賠償額を支払わなくてはならない（民法第419条第1項）が、商人間に適用される商事利率は年6％（商法第514条）。",
+      "不適切。債権は自由に譲渡できるのが原則（民法第466条）。契約上債権譲渡に関する定めがなくても、売掛債権はその性質上譲渡を許さないものではないので、B社の反対がない限り、原則に従いA社は債権を自由に譲渡できる。",
+      "適切。民法第420条第1項。",
+      "不適切。製造物責任法は、保護される対象を個人に限定していない。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 2●基本的な契約に関する契約法の基礎 ＞ 1●売買",
+    "num": 66,
+    "source": "H26前",
+    "q": "以下の＜事例＞に基づいた場合の売買契約に関する記述として適切なものは、次のうちどれか。\n\n＜事例＞\nA株式会社（以下「A社」という。）はB株式会社（以下「B社」という。）に対して、下記の条件で商品を販売することとし、2014年3月1日付で売買契約を締結した。この契約に関し、A社及びB社間で定めた事項は下記が全てであり、これ以外に特に取り決めた事項はなく、これ以外の事項については全て商法が適用される。\n・数量　1,000個\n・金額　500万円\n・納入期限　2014年3月末日\n・支払期限　2014年4月末日\n\nこの契約に基づき、2014年3月末日に、A社はB社に商品を引き渡し、商品を検査したうえで受領した。2014年4月末に、B社はA社にその代金500万円を支払った。ところが、2014年7月1日に、実際に引き渡された商品は980個であり、また実際に引き渡された980個の一部に引渡し時の検査では、直ちに発見できない瑕疵があることが判明した。2014年7月2日、B社はA社に対して、不足分の代金減額を求め、また当該瑕疵によってB社に生じた損害の賠償を求める旨を文書で通知した。なお、この売買は、A社B社共に事業のために行ったものである。またA社は商品が980個であること、及び商品の引渡し時の検査では、直ちに発見できない瑕疵があることのいずれについても、知らなかった。",
+    "choices": [
+      "B社は、商品20個分の代金減額と、商品の瑕疵によってB社が被った損害の賠償をいずれも請求できる。",
+      "B社は、商品20個分の代金減額を請求できないが、商品の瑕疵によってB社が被った損害の賠償を請求できる。",
+      "B社は、商品20個分の代金減額を請求できるが、商品の瑕疵によってB社が被った損害の賠償を請求できない。",
+      "B社は、商品20個分の代金減額と、商品の瑕疵によってB社が被った損害の賠償のいずれも請求できない。"
+    ],
+    "correct": 1,
+    "point": "売買契約に関する基本的枠組み（商人間売買の特則）について問う。",
+    "explains": [
+      "不適切。商人間売買には、商法第526条が適用されるため、目的物に瑕疵又は数量不足を発見したときは直ちに通知しなければ、契約解除や、代金減額・損害賠償の請求ができない。また目的物に直ちに発見することのできない瑕疵がある場合でも、買主が6カ月以内にその瑕疵を発見したときは担保責任を追及することができる。事例において、B社がA社に対して代金減額と損害賠償を求める旨を通知したのが4カ月後であり、20個分の代金減額についてはこの定めによりできない。瑕疵に関する損害賠償についてのみ可能である。",
+      "適切。商人間売買には、商法第526条が適用されるため、目的物に瑕疵又は数量不足を発見したときは直ちに通知しなければ、契約解除や、代金減額・損害賠償の請求ができない。また目的物に直ちに発見することのできない瑕疵がある場合でも、買主が6カ月以内にその瑕疵を発見したときは担保責任を追及することができる。事例において、B社がA社に対して代金減額と損害賠償を求める旨を通知したのが4カ月後であり、20個分の代金減額についてはこの定めによりできない。瑕疵に関する損害賠償についてのみ可能である。",
+      "不適切。上記のとおり、20個分の代金減額はできないが、瑕疵に関する損害賠償は可能である。",
+      "不適切。上記のとおり、瑕疵に関する損害賠償は可能である。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 2●基本的な契約に関する契約法の基礎 ＞ 1●売買",
+    "num": 67,
+    "source": "H24前",
+    "q": "A氏は、2011年10月1日にB氏に自分の土地（以下「本件土地」という。）を売り、その後、同年12月1日にC氏に本件土地を売った。この事例に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "C氏は、A氏から本件土地を購入した2011年12月1日の時点では、A・B氏間において既に本件土地の売買があったという事実を知らなかったものの、その後、登記取得する前に、A・B氏間の売買の事実を知るに至った。この場合、C氏がB氏よりも先に本件土地の所有権移転登記を取得すれば、本件土地の所有権をB氏に対抗できる。",
+      "A氏は、B氏に土地を売った時点で、本件土地の所有権を失っていることから、C氏が本件土地の所有権を取得する余地はない。",
+      "C氏は、2011年12月1日に売買契約を締結し、直ちに本件土地の所有権移転登記を取得したが、売買代金を支払っていない。B氏が2011年10月1日に本件土地の売買代金を全額支払っている場合には、Bが所有権を取得する。",
+      "C氏は、日頃からB氏を嫌悪しており、A・B氏間において本件土地の売買がなされたことを知っていたものの、B氏が、本件土地の所有権移転の登記を済ませていないことに乗じ、本件土地をB氏に高値で売り付けてB氏を困らせてやろうとA氏に本件土地の購入を持ちかけ、2011年12月1日に本件土地をA氏から購入して、所有権移転登記を完了した。このとき、B氏が登記をしなかった事実がある以上、C氏の上記意図等が考慮されることなく、C氏が本件土地の所有権をBに対抗できる。"
+    ],
+    "correct": 0,
+    "point": "不動産売買の二重譲渡に関する基本的な理解度を問う。",
+    "explains": [
+      "正しい。民法第177条により決せられる。",
+      "誤り。民法第177条により決せられる。",
+      "誤り。民法第177条により決せられる。",
+      "誤り。背信的悪意者については、民法第177条によっても保護されない。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 2●基本的な契約に関する契約法の基礎 ＞ 2●請負",
+    "num": 68,
+    "source": "H27前",
+    "q": "請負契約と準委任契約に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "請負契約は、仕事の完成を約束するものであるのに対して、準委任契約は、一定の役務提供を約束するものであり、仕事の完成を約束しない点が異なる。",
+      "「業務委託契約」というタイトルの契約は、請負契約であるので、検収が完了しないと、代金の支払い義務は発生しない。",
+      "「コンサルティング契約」というタイトルの契約は、準委任契約である場合が多いが、請負契約的な内容が含まれている場合もあるので、契約の内容をよく理解することが重要である。",
+      "請負契約であり、かつ、契約期間が1年である継続的取引の基本となる契約は、印紙税の課税文書となる。"
+    ],
+    "correct": 1,
+    "point": "請負契約と準委任契約との違いを中心に、契約書の基準細目の持つ意味、また、印紙税の課税文書に関する理解度を総合的に測る。",
+    "explains": [
+      "適切。請負契約は、仕事の完成を約束するものである。",
+      "不適切。「業務委託契約」というタイトルであっても、内容は準委任契約である場合もあるので、契約の内容を理解したうえで判断するべきである。",
+      "適切。「コンサルティング契約」というタイトルだけでは、請負契約と準委任契約との区別はつかない。",
+      "適切。「継続的取引の基本となる契約」は、印紙税の課税文書となる（第7号文書）。ここでいう「継続的取引の基本となる契約」とは、売買取引基本契約や請負に関する複数取引を継続的に行うための契約等が該当する。ただし、その契約書に記載された契約期間が3カ月以内であり、かつ、更新の定めのないものは除かれる。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 2●基本的な契約に関する契約法の基礎 ＞ 2●請負",
+    "num": 69,
+    "source": "H26前",
+    "q": "請負契約に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "請負契約は、注文者が仕事を処理することを委託し、請負人がこれを承諾することによって成立する契約であり、請負人は仕事を完成させる義務を負わない。",
+      "請負人は、注文者に生ずる損害を賠償すれば、いつでも請負契約を解除することができる。",
+      "請負人は、仕事の目的物に瑕疵があった場合、当該瑕疵が生じたことについて過失がなかったことを証明すれば、当該瑕疵に関する瑕疵担保責任を負わない。",
+      "請負人は、原則として請け負った仕事を第三者に請け負わせることができるが、当該第三者の故意又は過失について、請負人は責任を負う。"
+    ],
+    "correct": 3,
+    "point": "請負契約に関して、委任契約との関係も考慮しつつ、基本的な理解度を問う。",
+    "explains": [
+      "不適切。請負契約は、当事者の一方がある仕事を完成することを約し、相手方がその仕事の結果に対して、その報酬を支払うことを約することによって成立する契約である（民法第632条）。",
+      "不適切。注文者は、請負人が仕事を完成する前であれば、損害を賠償して契約を解除することができる（民法第641条）が、請負人にはそのような解除権はない。",
+      "不適切。瑕疵担保責任は無過失責任と解されており、瑕疵が生じたことにつき、請負人に過失がない場合であっても、請負人はその責任を免れることはできない。",
+      "適切。請負人本人の能力に着目してなされた特別な場合を除き、下請負は原則可能と解されているが、下請負人は元請負人の履行代行者又は履行補助者であるから、元請負人は、下請負人の故意又は過失（によって生じた損害）について責任を負う。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 2●基本的な契約に関する契約法の基礎 ＞ 4●賃貸借",
+    "num": 70,
+    "source": "H27前",
+    "q": "建物の賃貸借契約に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "賃貸借契約を締結しても、建物の引渡しを受けなければ、賃貸借契約の効力は発生しない。",
+      "敷金とは、賃貸借契約において、賃借人が賃貸人に対して交付する金銭をいい、賃貸借契約が終了した場合には、賃貸人はその全額を返還しなければならない。",
+      "借地借家法が適用されない賃貸借契約において、賃貸借の期間が定められていない場合、各当事者はいつでも解約の申入れをすることができる。",
+      "賃借権は物権ではなく債権であるから、登記することはできない。"
+    ],
+    "correct": 2,
+    "point": "賃貸借契約に関する基本的な理解度を問う。",
+    "explains": [
+      "不適切。賃貸借契約は要物契約ではない（民法第601条）。",
+      "不適切。敷金とは、賃貸借契約において、賃借人が賃貸期間中に賃貸人に対して負担する一切の債務を担保するために賃貸人に交付する金銭であるから、賃貸借契約の終了後、明渡し時に延滞賃料や損害賠償債務があるときは、これらが差し引かれ、その残額のみが返還される。",
+      "適切。民法第617条第1項。なお借地借家法が適用される場合には、同法第28条により正当事由があると認められる場合でなければ解約の申入れはできない。",
+      "不適切。民法第605条において登記も認められる。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
