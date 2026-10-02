@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題71〜80）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題71〜80）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "E●契約法務の基礎 ＞ 2●基本的な契約に関する契約法の基礎 ＞ 5●消費貸借",
+    "num": 71,
+    "source": "H26後",
+    "q": "金銭消費貸借契約に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "金銭消費貸借契約は、貸主と借主が契約書を作成しなければ、成立しない。",
+      "金銭消費貸借契約において返還の時期を定めなかった場合、貸主が返還を求めた時点から、借主は履行遅滞に陥る。",
+      "金銭消費貸借契約において、借主は返還期限が到来する前であっても、借受けた金銭を返還することができるが、利息付金銭消費貸借契約の場合には、借主は貸主に対して返還期限までの利息を支払う必要がある。",
+      "金銭消費貸借契約においては、金銭の所有権は借主に移転しない。"
+    ],
+    "correct": 2,
+    "point": "金銭消費貸借契約について基本的な理解度を問う。",
+    "explains": [
+      "不適切。金銭消費貸借契約は、契約書がなくても成立する。",
+      "不適切。貸主が相当な期間を定めずに返還を催告した場合、相当な期間が経過してから、借主は履行遅滞に陥る。",
+      "適切。借主は期限の利益を放棄することができるが、これによって貸主の利益を害することはできない（民法第136条第2項）。",
+      "不適切。金銭消費貸借契約においては、金銭の所有権は借主に移転する。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 3●印紙税法・国際取引契約 ＞ 1●印紙税法",
+    "num": 72,
+    "source": "H26後",
+    "q": "印紙税の取扱いに関する記述として最も不適切なものは、次のうちどれか。",
+    "choices": [
+      "継続的取引の基本契約書は印紙税の課税文書であるが、その支払金額や支払方法の変更のために作成した覚書は課税対象とならない文書である。",
+      "収入印紙を貼付する際には、再使用を防止するため消印をすることが義務づけられているが、契約書の捺印に用いた印鑑を使用しなければならない訳ではなく、作成者の署名でもかまわない。",
+      "請負契約書は課税対象となる文書であるが、委任契約書は課税対象となる文書ではない。",
+      "印紙税の課税対象文書に収入印紙を貼付しなかったとしても、その文書の法的効力は有効である。"
+    ],
+    "correct": 0,
+    "point": "印紙税課税の基本的な知識を確認する。",
+    "explains": [
+      "不適切。継続的取引の基本契約書に関して、支払金額や支払方法等について変更するために作成した覚書は、基本契約書の一部とみなされ、課税対象文書となる。印紙税法基本通達別表第2「重要な事項の一覧表」第5項（第7号文書）第1項、印紙税法施行令第26条の内容を変える場合は、課税対象となる。",
+      "適切。印紙を消す方法は、文書の作成者又は代理人、使用人その他の従業者の印章又は署名によることになっているので、契約書に捺印された印章でなければならない訳ではない（印紙税法施行令第5条）。",
+      "適切。請負契約書は課税対象となる文書（第2号文書）であるが、委任契約書は課税対象となる文書ではない。",
+      "適切。印紙の貼付有無はあくまで印紙税法上の問題であり、対象文書の法的効力には影響を与えない。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 3●印紙税法・国際取引契約 ＞ 1●印紙税法",
+    "num": 73,
+    "source": "H24前",
+    "q": "印紙に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "A社は、B社から土地を購入するため、B社との間で、土地売買契約を締結した。かかる契約締結にあたり、A社とB社は、それぞれが契約書原本を保有するため、土地売買契約書を2通作成したが、印紙はいずれか1通に貼ればよい。",
+      "A社は、B社との土地売買契約書において、印紙を貼らないと、当該土地売買契約書は無効となる。",
+      "A社とB社との間の土地売買契約書に貼った印紙を消印するにあたり、A社の印章のみで消印し、B社による消印は行わなかった。かかる消印方法も認められる。",
+      "A社は、B社から土地を購入するにあたり、B社との間で、売買の予約について合意に至ったことから、A社とB社は、当該合意について「覚書」と題する書面を作成のうえ、両当事者が調印した。かかる書面は、単なる「覚書」にすぎないことから、当該覚書には、印紙を貼る必要はない。"
+    ],
+    "correct": 2,
+    "point": "印紙に関する基本的な理解度を問う。",
+    "explains": [
+      "誤り。同一内容の文書を2通以上作成した場合も、2通以上の文書が課税事項を証明する目的で作成されたものであるときは、いずれも課税文書に該当する（基本通達第19条）。",
+      "誤り。印紙を貼付しなかった場合には過怠税を課されることとなるが、当該契約が無効となるわけではない。",
+      "正しい。選択肢のとおり。",
+      "誤り。印紙税法においては、「契約」にはその予約を含むものとされており（通則第5条）、「予約」とは、本契約を将来成立させることを約する契約をいい、印紙税法上は、本契約と同一に取り扱われる。予約契約書は、協定書、念書、覚書等様々な名称を用いて作成されるが、その成立させようとする本契約の内容により課税物件表における所属が決定され、「覚書」としたからといって、印紙税法上の契約に該当しないわけではない（基本通達第15条）。"
+    ]
+  },
+  {
+    "cat": "E●契約法務の基礎 ＞ 3●印紙税法・国際取引契約 ＞ 2●国際取引契約の作成と進め方",
+    "num": 74,
+    "source": "H27前",
+    "q": "国際取引契約の作成に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "船荷証券や登記簿謄本などの、代金決済方法に関する理解が必要である。",
+      "国際取引の合意・実行にあたって伴う法律上のリスク評価を正確に行うことが重要である。",
+      "将来発生しうる当事者間の紛争を想定して、その解決のための条項を盛り込んだ契約書を作成することが重要である。",
+      "法律上のリスク評価にあたっては、取引先の現地の法規制やインコタームズ、ウィーン売買条約等の国際取引上の通商規制の視点も必要である。"
+    ],
+    "correct": 0,
+    "point": "国際取引契約の作成にあたり、基礎的な知識を問う。",
+    "explains": [
+      "不適切。国際取引契約の作成にあたっては、船荷証券や信用状など、代金決済方法に関する理解が必要である。登記簿謄本は、代金決済方法とは関係ない。",
+      "適切。国際取引においては、現地の法規制、契約上の準拠法や準拠すべき通商規制、他国の法規制による域外適用等について考慮したうえで、契約を合意し、取引を実行しなければならない。",
+      "適切。取引上の条件のみを規定するのではなく、解約条項や裁判管轄条項等、将来発生しうる紛争を想定した条項を盛り込んだ契約書を作成する必要がある。",
+      "適切。現地法やインコタームズ（国際商業会議所［International Chamber of Commerce：ICC］が策定した貿易条件）、ウィーン売買条約等の通商規制を踏まえたリスク評価や条項の作成が必要である。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 1●債権管理の基礎 ＞ 1●登記事項の読み方",
+    "num": 75,
+    "source": "H24前",
+    "q": "株式会社の商業登記に関する記述として誤っているものは、次のうちどれか。",
+    "choices": [
+      "株式会社の取締役が交代した場合、その会社の登記の内容を変更する手続も必要となる。",
+      "登記の内容が誤りであったとしても、商業登記の公信力により、登記の内容が事実であると信頼して取引を行った第三者が保護される場合がある。",
+      "株式会社の資本金の額は登記事項ではないため、株式会社の資本金の額を知るためには、その会社の事業報告書を確認する必要がある。",
+      "株式会社は、その本店の所在地において、設立の登記をすることによって成立するため、登記されていない株式会社は、法的には会社として存在しない。"
+    ],
+    "correct": 2,
+    "point": "会社の登記事項に関する基本的な知識を問う。",
+    "explains": [
+      "正しい。取締役の氏名は株式会社の登記事項であり、登記事項に変更があった場合には遅滞なく変更の登記をしなければならない（会社法第911条第3項第3号、第909条）。",
+      "正しい。善意の第三者は保護される場合がある（商法第9条第2項、会社法第908条等）。",
+      "誤り。資本金の額も株式会社の登記事項である（会社法第911条第3項第5号）。",
+      "正しい。株式会社の設立は、その設立の登記が効力要件である（会社法第49条）。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 1●債権管理の基礎 ＞ 1●登記事項の読み方",
+    "num": 76,
+    "source": "H24後",
+    "q": "商業登記に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "会社の代表取締役が会社法により行うべき登記を怠った場合、その代表取締役は100万円以下の過料に処せられる可能性がある。",
+      "事実に合致しない登記を不実登記といい、無効である。",
+      "不実登記を信じて取引し、損害を被っても、法的には保護されない。",
+      "退任した代表取締役の行為は、退任登記をしていない場合には、善意の第三者に対する責任を免れることはできない。"
+    ],
+    "correct": 2,
+    "point": "商業登記の効力について問う。",
+    "explains": [
+      "適切。商業登記は、会社法第907条〜第938条の要求するところに従い、商業登記法に基づいてなされなければならず、これに違反した者は100万円以下の過料に処せられる（会社法第976条第1号）。",
+      "適切。登記の後でなければ、善意の第三者に対抗できず（商法第9条第1項前段）、登記の後は、正当な事由のない限り第三者に対抗できない（同後段）。これを登記の公示力という。天災等の特別な事情以外に「正当な事由」とは認められず、事実上ほとんど認められる余地はない。",
+      "不適切。故意又は過失により事実に反する不実登記をした者は、不実を理由として善意の第三者に対抗できない。これを公信力という（商法第9条第2項）。",
+      "適切。不実登記は無効であるが、そうすると第三者は登記無効の主張を甘受しなければならず、取引の安全性を妨げることになるので、善意の第三者に対抗できないものとしたのである。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 1●債権管理の基礎 ＞ 2●信用調査",
+    "num": 77,
+    "source": "H27前",
+    "q": "信用調査に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "信用調査は、不良債権の発生を予防することのみならず、商品仕入れや工事発注に際して相手先の契約履行能力を調べることにも役立ち、さらには、優良な取引先を選別するという意義もある。",
+      "信用調査では、様々な情報ソースから得られた情報を照合し、総合的に判断することが重要である。一般的に、ヒト、モノ、カネの側面から分析・判断する。",
+      "信用調査の方法には、登記情報、信用調書、有価証券報告書、銀行照会、業界情報、相手先から計算書類や事業報告書を直接入手する方法等があるが、信用調査の程度によっては、興信録の利用のような簡単な調査も考えられる。",
+      "信用調査の方法の1つとして、調査対象企業の商業登記は有用であるが、不動産登記は、対象企業の不動産に関する情報であるため、信用調査の手段としては有用とはいえない。"
+    ],
+    "correct": 3,
+    "point": "「標準テキスト」の記載に従った形での基本的な知識を問う。",
+    "explains": [
+      "適切。選択肢のとおり。",
+      "適切。ヒト、モノ、カネの各側面から情報を分析・判断する。",
+      "適切。選択肢のとおり。",
+      "不適切。企業財産における不動産価値は重要なものであり、企業の不動産の価値や担保設定状況を知ることは、信用調査に大いに役立つ。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 1●債権管理の基礎 ＞ 2●信用調査",
+    "num": 78,
+    "source": "H26後",
+    "q": "新たに取引を開始する予定のA社の信用調査を行った担当者の対応として最も適切なものは、次のうちどれか。",
+    "choices": [
+      "A社の履歴事項全部証明書を確認したところ、A社の商号及び代表取締役が頻繁に変更されていることが判明したため、A社との取引は差し控えたほうがよいと判断した。",
+      "A社の履歴事項全部証明書を確認したところ、A社の規模に比較して資本金の額が少ないことが判明したため、財政状態に問題があるA社との取引は差し控えたほうがよいと判断した。",
+      "主要な取引先との関係が悪化している旨がA社の信用調書に記載されていたが、信用調書をA社の社長に提示したうえで説明を求めたところ、十分な回答を得られたため、A社との取引を開始することは問題ないと判断した。",
+      "信用調査を行った結果、特段の問題は見られなかったが、万が一の場合に備えて、外部の専門家とともにA社に出向き、会計帳簿の開示を受けたうえで、監査に近い調査を行う必要があると判断した。"
+    ],
+    "correct": 0,
+    "point": "信用調査を担当する際に適切な判断・対応ができるかを問う。",
+    "explains": [
+      "適切。商号や代表取締役が頻繁に変更されることは一般的ではなく、取込詐欺等の悪用目的のために休眠会社を買い取っている可能性も考えられる。",
+      "不適切。資本金の額が少なくとも、十分な額の資本剰余金や利益剰余金があることは当然ありうるため、資本金の額のみで財政状態を判断することはできない。",
+      "不適切。調査機関との関係では、信用調書を相手先に開示することは禁止されているのが通常である。",
+      "不適切。与信が集中する取引先であれば監査に近い調査を求めることも考えられるが、信用調査を行った結果、特段の問題がなかったのであれば、上記の対応を行うことには費用対効果の観点から問題がある。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 2●主要な担保手段 ＞ 1●物的担保",
+    "num": 79,
+    "source": "H24後",
+    "q": "次の＜事例＞に基づき、動産譲渡担保に関する記述として適切なものは、次のうちどれか。\n\n＜事例＞\nX社は、事業用機械の販売を業としている会社である。X社は、A社に対し、X社の甲倉庫内の全ての事業用機械を対象として、集合物譲渡担保権を設定し、占有改定の方法による引渡しを行った。さらに、X社は、B社に対し、甲倉庫内の同一の事業用機械を対象として、集合物譲渡担保権を設定し、占有改定の方法による引渡しを行った。",
+    "choices": [
+      "A社が、さらにX社から、甲倉庫内にある事業用機械の現実の引渡しを受けた場合、B社は、X社に対して、集合物譲渡担保権の実行に基づく引渡しを請求できる。",
+      "X社が、その後、B社に対して、甲倉庫内の事業用機械を現実に引き渡した場合、A社は、X社に対して、集合物譲渡担保権の実行に基づく引渡しを請求できる。",
+      "A社及びB社の両者が、同時に、X社に対し、甲倉庫内の事業用機械の集合物譲渡担保権の実行に基づく引渡しを求めた場合、X社は、いずれの請求も拒むことができる。",
+      "X社が、その後、C社に対して、甲倉庫内の事業用機械を対象として、集合物譲渡担保権を設定し、現実の引渡しを行った場合、C社は、A社に対して、集合物譲渡担保権の実行に基づき取得した事業用機械の所有権を対抗できる。"
+    ],
+    "correct": 1,
+    "point": "動産譲渡担保に関する知識を問う。",
+    "explains": [
+      "不適切。集合物譲渡担保権の対抗要件は、占有改定による引渡しで足り、その後に現実の引渡しを受けた者が対抗要件を取得するわけではない。",
+      "適切。動産譲渡担保の対抗要件は、原則として引渡しであり、かかる引渡しは、現実の引渡しでなくてもよく、代理人が本人のために目的物を占有する方式による占有改定の方法による引渡しで足りる。すなわち、本事例で、X社が、A社に対して、占有改定の方法による引渡しを行った段階で、A社は、自己の集合物譲渡担保権を有効に第三者に対抗できる。したがって、A社がX社から、占有改定による引渡しを受けた後は、A社のみがその集合物譲渡担保権に基づく目的物の引渡しをX社に請求でき、その後のB社の集合物譲渡担保権は、A社には対抗できない。",
+      "不適切。X社は、A社の請求を拒めない。",
+      "不適切。A社が先に占有改定による引渡しを受けて対抗要件を備えている以上、その後のC社の集合物譲渡担保権は、A社には対抗できない。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 2●主要な担保手段 ＞ 1●物的担保",
+    "num": 80,
+    "source": "H27前",
+    "q": "A社の取引先であるB社は、創業から間もない会社であり、工場は賃借していることから、B社の主な財産で担保等の設定がなされていないものは、事業用の設備、在庫、売掛債権しかない。A社は、B社との取引を継続するためB社から担保の提供を受けたいが、記述のうち、B社から担保の提供を受ける方法として不適切なものは、次のうちどれか。",
+    "choices": [
+      "全ての在庫に質権を設定してもらう。",
+      "一切の設備に譲渡担保を設定してもらう。",
+      "売掛債権全てに譲渡予約をしてもらう。",
+      "売掛債権及び在庫の全てに譲渡担保を設定してもらう。"
+    ],
+    "correct": 0,
+    "point": "事業用に用いている動産しか担保に取れない状況の中、動産を担保に取得するための実務的な判断を問う。",
+    "explains": [
+      "不適切。もとより動産に質権を設定することは可能であるが、動産質権者は、継続して質物を占有しなければ、その質権をもって第三者に対抗することができない（民法第352条）。そして在庫を引き渡してしまっては、事業を継続できないから、この場合は不適切である。",
+      "適切。設備に譲渡担保を設定しても、事業用に設備を使用し続けることが可能であるから、正しい。",
+      "適切。譲渡予約は債務不履行になったとき、予約が完結するが、それまではA社は普通に自社の取引先から入金でき、営業上の支障がないので、正しい。",
+      "適切。売掛債権、在庫ともに譲渡担保設定は可能であり、イと同じ理由で正しい。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
