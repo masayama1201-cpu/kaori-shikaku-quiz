@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題31〜40）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題31〜40）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 4●定款変更",
+    "num": 31,
+    "source": "H27前",
+    "q": "株式会社の定款に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "定款変更は、対象となる事項が登記事項である場合には変更登記をしなければその効力は生じない。",
+      "定款は、本店及び支店に備え置き、当該株式会社の株主及び会社債権者の閲覧・謄写に供されるが、当該株式会社の親会社の株主は定款の閲覧・謄写を請求することはできない。",
+      "相対的記載事項とは、定款に記載しなくても定款自体の効力は有効であるが、定款で定めないとその事項の効力が認められない事項をいう。",
+      "定款に必ず記載しなければならない事項は、会社の目的、商号及び本店所在地の3つである。"
+    ],
+    "correct": 2,
+    "point": "会社の定款の重要性を認識し、その変更に関する基本的な知識を学ぶ。",
+    "explains": [
+      "不適切。定款変更は、株主総会の決議により当然に効力が生じると解されている。当該事項が登記事項である場合変更登記が必要になるが、定款変更の効力発生要件ではない。",
+      "不適切。定款は、本店及び支店に備え置き、発起人・株主・会社債権者の閲覧・謄写に供する（会社法第31条第1項、第2項、第4項）。なお親会社の株主等も権利を行使する必要があるときは、裁判所の許可を得て、閲覧・謄写の請求ができる（会社法第31条第3項）。",
+      "適切。相対的記載事項とは、定款に記載しなくても定款自体の効力は有効であるが、定款で定めないとその事項の効力が認められないような事項をいう（会社法第29条）。例えば変態設立事項（会社法第28条）や公告方法（会社法第2条第33号、第34号、第939条第1項）。",
+      "不適切。定款に必ず記載しなければならない事項を絶対的記載事項といい、①目的、②商号、③本店の所在地、④設立に際して出資される財産の価額又はその最低額、⑤発起人の氏名・住所、⑥発行可能株式総数である（会社法第27条第1号〜第5号、第37条第1項）。"
+    ]
+  },
+  {
+    "cat": "B●会社法に関する法務（基礎） ＞ 3●役員・新株発行・資本金減少・定款変更 ＞ 4●定款変更",
+    "num": 32,
+    "source": "H26後",
+    "q": "定款に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "会社の定款は、公証人の認証を受ける必要があることから、電磁的記録をもって作成することはできない。",
+      "会社の設立にあたっては、発起人と取締役が定款を作成して全員がこれに署名するか、記名押印をしなければならない。",
+      "定款の絶対的記載事項には、目的と商号が含まれる。",
+      "会社の定款変更は、株主総会の普通決議によって行うことができる。"
+    ],
+    "correct": 2,
+    "point": "会社の定款に関する知識を全体として学ぶ。",
+    "explains": [
+      "不適切。発起人が署名又は記名押印した定款については公証人の認証を受ける必要があるが（会社法第30条第1項）、電磁的記録をもって定款を作成することも認められている（会社法第26条第2項）。",
+      "不適切。設立に際しては、発起人のみが定款を作成して、全員がこれに署名し、又は記名押印しなければならない（会社法第26条第1項）。",
+      "適切。絶対的記載事項としては、①目的、②商号、③本店所在地、④設立に際して出資される財産の価額又はその最低額、⑤発起人の氏名又は名称及び住所等、⑥発行可能株式総数がある（会社法第27条、第37条）。",
+      "不適切。定款変更は特別決議による（会社法第309条第2項第11号）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 1●機関設計の考え方 ＞ 1●株式会社の機関",
+    "num": 33,
+    "source": "H27前",
+    "q": "株式会社の機関に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "株主総会の決議には、普通決議、特別決議、特殊決議の3種がある。普通決議の定足数は、定款に定めることにより、排除又は軽減することができるが、特別決議と特殊決議については、定足数の排除又は軽減はできない。",
+      "代表取締役は会社の代表権を有するが、代表取締役の員数は複数でもよい。",
+      "指名委員会等設置会社の場合を除き、重要な業務執行については取締役会で決定しなければならず、代表取締役等に委ねることはできない。",
+      "指名委員会等設置会社の取締役は、原則として業務執行権を有せず、業務執行は執行役が行う。ただし、取締役が執行役を兼ねることはできる。"
+    ],
+    "correct": 0,
+    "point": "株式会社の機関についての基本知識を問う",
+    "explains": [
+      "不適切。特殊決議はその通りだが、特別決議の定足数は定款で3分の1まで軽減することができる（会社法第309条第2項）。",
+      "適切。代表取締役は一人でも数人でもよい。",
+      "適切。指名委員会等設置会社を除き、取締役会は、重要な業務執行（専決事項）についてその決定を代表取締役にゆだねることはできない（会社法第362条第4項、第416条）。",
+      "適切。指名委員会等設置会社の取締役は、業務執行をすることはできない（会社法第415条）。執行役が会社の業務執行を行う（会社法第418条）。取締役が執行役を兼務することは認められる（会社法第402条第6項）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 1●機関設計の考え方 ＞ 1●株式会社の機関",
+    "num": 34,
+    "source": "H26後",
+    "q": "株式会社の機関に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "株式会社においては、全ての会社に監査役が置かれる。",
+      "株式会社においては、全ての会社に取締役が置かれる。",
+      "株式会社においては、全ての会社に株主総会が置かれる。",
+      "株式会社においては、全ての会社に取締役会が置かれるわけではない。"
+    ],
+    "correct": 0,
+    "point": "株式会社の機関設計に関する規整について問う。",
+    "explains": [
+      "不適切。委員会設置会社及び中小会社（非大会社）であり、かつ、非公開会社であれば、監査役を置かなくてもよい（会社法第327条第4項）。",
+      "適切。全ての株式会社は株主総会と取締役が必要である（会社法第295条、第326条第1項）。",
+      "適切。イと同様。",
+      "適切。非大会社、又は、大会社であり、かつ、非公開会社であれば、取締役会を置かなくてよい（会社法第327条第1項）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 2●株主総会 ＞ 1●株主総会の権限、招集",
+    "num": 35,
+    "source": "H26後",
+    "q": "株主総会に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "株主総会の種類としては、定時株主総会と種類株主総会の2種類がある。",
+      "株主総会は、会社経営者が会社の意思を決定する唯一の場である。",
+      "代表取締役が取締役会の決議を経ないで召集した株主総会の決議は当然に無効となる。",
+      "定款で単元株式数を定めている場合、株主総会における議決権は、1単元の株式につき1個である。"
+    ],
+    "correct": 3,
+    "point": "株主総会についての組織及び運営に関する基礎知識を整理する。",
+    "explains": [
+      "不適切。株主総会の種類は、決算期ごとに定時に開かれる定時株主総会と、臨時に開かれる臨時株主総会、さらには種類株式を発行している株式会社における種類株主総会がある（会社法第2条第13号、第14号）。",
+      "不適切。株主総会の法定権限以外の意思決定は取締役会に委ねられる。",
+      "不適切。瑕疵ある株主総会の決議は当然に無効となるものではなく、取消しの訴えに服するにすぎない（会社法第831条第1項第1号、東京高裁昭和30年7月19日判決）。",
+      "適切。株主総会における議決権は1株について1個、単元株では1単元の株式について1個となる（会社法第308条）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 3●取締役・取締役会・監査役・監査役会、その他の機関 ＞ 1●取締役",
+    "num": 36,
+    "source": "H26前",
+    "q": "取締役及び取締役会に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "指名委員会等設置会社の取締役の任期は、他の形態の株式会社と同じく、原則2年である。",
+      "取締役会設置会社における取締役は、3人以上必要である。",
+      "取締役会においては、取締役が、相互に協議し意見交換を重ねて意思決定を行う必要があるため、取締役の代理出席は認められない。",
+      "取締役会の決議について特別の利害関係を有する取締役は、その決議について議決に参加することはできない。"
+    ],
+    "correct": 0,
+    "point": "取締役及び取締役会について、基本的な知識を身につける。",
+    "explains": [
+      "不適切。指名委員会等設置会社の取締役の任期は1年以内である（会社法第332条第6項）。",
+      "適切。会社法第331条第5項。",
+      "適切。取締役は固有の能力を買われて選任されていることから、他者に任せることは株主の期待に反する。",
+      "適切。会社法第369条第2項。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 3●取締役・取締役会・監査役・監査役会、その他の機関 ＞ 1●取締役",
+    "num": 37,
+    "source": "H26後",
+    "q": "取締役及び取締役会に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "取締役会設置会社では、株主総会で代表取締役を選任する。",
+      "公開会社である取締役会設置会社では、取締役の任期は、原則として選任後2年以内に終了する事業年度のうち、最終のものに関する定時株主総会の終結の時までとされているが、例外的に短縮することができる。",
+      "取締役会設置会社では、取締役の員数は3人以上必要である。",
+      "取締役会設置会社では、必ず取締役会で決定しなければならず、代表取締役に委ねられない事項がある。"
+    ],
+    "correct": 0,
+    "point": "取締役及び取締役会において、基本的な知識を身につける。",
+    "explains": [
+      "不適切。取締役会設置会社では、取締役会で代表取締役を選任する（会社法第362条第2項）。",
+      "適切。原則2年であるが、定款又は総会決議で短縮できる（会社法第332条第1項但書）し、指名委員会等設置会社の場合は1年である（会社法第332条第6項）。",
+      "適切。取締役会設置会社の場合、取締役の員数は3人以上である（会社法第331条第4項）。非取締役会設置会社であれば、取締役の員数は1人でもよい。",
+      "適切。会社法第362条第4項に定められた、重要な業務執行以下である。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 3●取締役・取締役会・監査役・監査役会、その他の機関 ＞ 3●監査役",
+    "num": 38,
+    "source": "H27前",
+    "q": "株式会社の監査機構に関する記述として、（　　）内に入る語句の組合せ表現として適切なものは、次のうちどれか。\n\n大会社で（　A　）である会社（指名委員会等設置会社及び監査等委員会設置会社を除く）は、監査役会を置かねばならない。監査役会設置会社においては、監査役は3人以上で、かつそのうち（　B　）以上は社外監査役でなければならない。また、監査役会の決議は、監査役の（　C　）で決定する。",
+    "choices": [
+      "A：非公開会社　B：1人　C：全会一致",
+      "A：公開会社　B：半数　C：過半数",
+      "A：公開会社　B：半数　C：全会一致",
+      "A：公開会社　B：1人　C：過半数"
+    ],
+    "correct": 1,
+    "point": "株式会社の監査機構について、基本的な知識を身につける。",
+    "explains": [
+      "不適切。Aは非公開会社ではなく公開会社である（会社法第328条第1項）。BとCも誤り。",
+      "適切。A：大会社で公開会社である会社（指名委員会等設置会社及び監査等委員会設置会社を除く）は監査役会を置かねばならない（会社法第328条第1項）。B：監査役会設置会社においては、監査役は3人以上で、かつその半数以上は社外監査役でなければならない（会社法第335条第3項）。C：監査役会の決議は監査役の過半数で決する（会社法第393条第1項）。",
+      "不適切。Cは全会一致ではなく過半数である（会社法第393条第1項）。",
+      "不適切。Bは1人ではなく半数である（会社法第335条第3項）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 3●取締役・取締役会・監査役・監査役会、その他の機関 ＞ 3●監査役",
+    "num": 39,
+    "source": "H21後",
+    "q": "監査役及び監査役会に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "監査役は職務を行うために必要があるときは、子会社の業務及び財産の状況を調査できるが、子会社は正当な理由があるときは、これを拒むことができる。",
+      "監査役は、取締役会に出席する義務を負わない。",
+      "非公開会社（監査役会設置会社及び会計監査人設置会社を除く）では、定款で定めることにより、監査役の監査権限の範囲を会計監査に限定することができる。",
+      "監査役会設置会社において、監査役は半数以上の社外監査役を含む3人以上で構成され、全員で監査役会を組織する。"
+    ],
+    "correct": 1,
+    "point": "監査役及び監査役会において、基本的な知識を身につける。",
+    "explains": [
+      "適切。監査役は、その職務を行うため必要があるときは子会社に対して事業の報告を求め、また、自ら子会社の業務及び財産の状況の調査をする権限を有する（会社法第381条第3項）。ただし子会社は正当な理由があるときは、これを拒むことができる（同法第381条第4項）。",
+      "不適切。監査役は取締役会への出席義務、意見陳述義務を負う（会社法第383条第1項）。",
+      "適切。非公開会社（監査役会設置会社及び会計監査人設置会社を除く）では、定款で定めることにより、監査役の監査権限の範囲を会計監査に限定することができる（会社法第389条第1項）。",
+      "適切。監査役は3人以上で、かつその半数以上は社外監査役でなければならない（会社法第335条第3項）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 3●取締役・取締役会・監査役・監査役会、その他の機関 ＞ 3●監査役",
+    "num": 40,
+    "source": "H24後",
+    "q": "監査役及び監査役会に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "監査役には、子会社を調査する権限がある。",
+      "監査役は、必ずしも監査報告書を作成する必要はない。",
+      "社外監査役は、過去に子会社の正社員であった者はなれない。",
+      "監査役会設置会社では、監査役会議事録は、本店に10年間備え置く必要がある。"
+    ],
+    "correct": 1,
+    "point": "監査役及び監査役会において、基本的な知識を身につける。",
+    "explains": [
+      "適切。監査役は、その職務を行うために必要であれば子会社に対して報告を求め、又は調査をすることができる（会社法第381条第3項）。",
+      "不適切。監査役は、取締役（会計参与設置会社にあっては、取締役及び会計参与）の職務執行を監査し、法務省令が定めるところにより監査報告を作成しなければならない（会社法第381条第1項）。",
+      "適切。社外監査役は、株式会社の監査役で、過去に当該株式会社又はその子会社の取締役、会計参与（会計参与が法人であるときは、その職務を行うべき社員）若しくは執行役又は支配人、その他の使用人となったことがない者をいう（会社法第2条第16号）。",
+      "適切。監査役会設置会社は、監査役会の日から10年間議事録をその本店に備え置かなければならない（会社法第394条第1項）。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
