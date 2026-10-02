@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題81〜90）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題81〜90）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 2●主要な担保手段 ＞ 1●物的担保",
+    "num": 81,
+    "source": "H26前",
+    "q": "以下の＜事例＞を前提とした場合、Aの債権に関する記述として適切なものは、次のうちどれか。\n\n＜事例＞\nAは、2014年6月10日、支払日を2014年7月8日として、印刷機械をBに売り渡し、BのAに対する代金債務について、Cが保証した。かかる状況の下、Aは運転資金を捻出するため、2014年6月20日、甲に対して、Bに対する本件売掛債権を譲渡した。他方で、Aは、2014年6月28日、乙に対する支払のため、Bに対する本件売掛債権を乙に譲渡した。\n（図：甲←譲渡―A―譲渡→乙、Aから保証債権としてC、Aから売掛債権としてB）",
+    "choices": [
+      "Aから甲への本件売掛債権の譲渡についてのAによる確定日付ある証書による通知が、2014年6月30日にBに到達し、Aから乙への本件売掛債権の譲渡についてのAによる確定日付ある証書による通知が、2014年6月29日にBに到達した場合、Bは売買代金を甲に支払う必要がある。",
+      "本件売掛債権の債権譲渡に係る確定日付ある証書による通知が、2014年6月23日に、甲からBに対してなされたが、Bは、Aから乙への本件売掛債権の譲渡の事実を知り、乙に対して2014年6月29日に確定日付ある証書をもって、承諾をした。この場合において、甲は、Bに対して自らが債権者であると主張できる。",
+      "保証人Cが、Aとの間で保証契約を締結している以上、Aから甲又は乙への本件売掛債権の譲渡にかかわらず、保証人Cは、Aに対してその保証債務を負う。",
+      "保証人Cが、Aとの間で保証契約を締結している場合でも、AからBへの印刷機械の売買が錯誤により無効である場合には、Cの保証債務も無効となる。"
+    ],
+    "correct": 3,
+    "point": "債権譲渡の対抗要件及び保証の性質の基本的な理解を、実務的な視点を通じて問う。",
+    "explains": [
+      "不適切。債権の二重譲渡の場合の優劣関係は、譲渡が実際に行われた日ではなく、確定日付ある証書による通知又は承諾の到達時を基準として決せられる（最高裁昭和49年3月7日判決〔民集28-2-174頁(126)〕）。したがって、本設問においては、Aから乙への債権譲渡に係る確定日付ある証書による通知が、先にBの下に到達している以上、乙が、甲に優先することとなり、Bは、売買代金を乙に支払う必要がある。",
+      "不適切。債権譲渡は譲渡人から債務者への通知又は債務者の承諾がなければ債務者その他の第三者に対抗できず（民法第467条第1項）、債権の譲受人から債務者への通知では債権者その他の第三者に対抗できない。したがって、本設問において、Aから甲への債権譲渡に係る通知は、譲受人である甲からBに対してなされている以上、甲はBに対して、債権の譲受けを対抗できない。したがって、甲はBに対して自らが債権者であると主張することはできない。",
+      "不適切。主たる債務が移転すれば、保証債務もそれに従って移転する（保証債務の随伴性）。したがって、主たる債務である本件売掛債権が有効に譲渡されれば、保証債務もそれに伴って移転し、保証人Cは、本件売掛債権の譲受人に対して保証債務を負う。",
+      "適切。保証債務の附従性。主たる債務が無効である以上は、保証債務も無効となる。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 3●債権回収と手形・小切手 ＞ 1●手形・小切手",
+    "num": 82,
+    "source": "H24前",
+    "q": "約束手形に関する記述として正しいものは、次のうちどれか。",
+    "choices": [
+      "満期日が空欄のまま振り出された手形は、手形金の支払いを行うべき期日が明らかでないことから無効となる。",
+      "手形が盗難された場合には、支払場所として記載された銀行に対して直ちにその旨を届け出ることで、盗難された手形に基づく支払義務から免れることができる。",
+      "約束手形に裏書をすることによって、約束手形より生じる一切の権利が、裏書人から被裏書人に対して移転される。",
+      "商取引に基づき生じた売掛債権を、早期に現金化するために振り出される手形は、一般に融通手形と呼ばれる。"
+    ],
+    "correct": 2,
+    "point": "約束手形に関する基本的な知識を問う。",
+    "explains": [
+      "誤り。必要的記載事項の欠けた手形も白地手形としては有効であるし、そもそも満期日の記載のない手形は一覧払とみなされるため、有効である（手形法第76条第2項）。",
+      "誤り。手形を無効にするには公示催告の申立てによる除権判決を取得する必要がある。",
+      "正しい。約束手形は裏書によって流通する（手形法第77条第1項第1号、第14条第1項）。",
+      "誤り。融通手形とは、商取引の裏づけのない金融目的の手形をいう。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 3●債権回収と手形・小切手 ＞ 2●信用不安先への対応策",
+    "num": 83,
+    "source": "H24前",
+    "q": "以下の＜事例＞に基づき、債権回収方法に関する記述として不適切なものは、次のうちどれか。\n\n＜事例＞\nA社は、古くからの取引先であるB社に対して、500万円の売掛金を有しているが、売掛金の支払期日到来後も、B社からの入金がなかったため、資金繰りに不安のあるB社から、早急に売掛金を回収したいと考えている。なお、A社がB社に対して納入した商品が、現在もB社の倉庫内で保管されていることは判明している。",
+    "choices": [
+      "B社の倉庫内に保管されているA社の納入商品が、他に処分されることを防ぐためには、A社は、裁判所に対して仮処分の申立てをすることが有効である。",
+      "B社に対する売掛金が、B社の倉庫内に保管されているA社の納入商品の売買に基づき生じた債権である場合、A社は、当然に先取特権を有することとなる。",
+      "A社は、留置権を行使することで、B社の了解がなくとも、B社の倉庫内に立ち入って、A社の納入商品を回収することができる。",
+      "A社は、B社との取引を開始する際に10万円の保証金の預託を受けていた場合、自らの売掛金を自動債権として、B社の保証金返還請求権と対当額で相殺できる。"
+    ],
+    "correct": 2,
+    "point": "債権回収手段の行使の可否を問う。",
+    "explains": [
+      "適切。処分禁止・占有移転禁止の仮処分の申立てを行うことになる。",
+      "適切。先取特権は法定担保であり、動産の売買により当然に成立する（民法第311条第5号）。",
+      "不適切。留置権とは、被担保債権が弁済されるまでは被担保債権に関連して自らが占有している物を返還しなくてよい権利であり、他人の占有している物の自力回収を認める権利ではない。",
+      "適切。相殺には担保的効力が認められる。"
+    ]
+  },
+  {
+    "cat": "F●債権管理と回収の基礎 ＞ 3●債権回収と手形・小切手 ＞ 4●一方的緊急回収対策",
+    "num": 84,
+    "source": "H26後",
+    "q": "留置権に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "留置権者は、一定の期間にわたって債権の弁済を受けられなかった場合、留置物を処分し、その処分代金を弁済に充当することができる。",
+      "留置権の効力は、債権者及び債務者の間に留置権を設定する旨の合意がなかったとしても、当然に発生する。",
+      "債権者が不法行為によって占有を開始した物については、留置権は成立しない。",
+      "債権者が物の占有を債務者に返還した場合には、留置権は消滅する。"
+    ],
+    "correct": 0,
+    "point": "留置権の性質及び効力に関する基本的な理解を問う。",
+    "explains": [
+      "不適切。留置権者は物を留置する権限しか有しておらず、留置物を処分することは認められない。",
+      "適切。留置権は法定担保物権であり、当事者の合意がなくとも当然に発生する（民法第295条第1項）。",
+      "適切。民法第295条第2項。",
+      "適切。民法第302条。"
+    ]
+  },
+  {
+    "cat": "G●企業取引規制・知的財産権の基礎 ＞ 1●私的独占の禁止及び公正取引の確保に関する法律（独禁法） ＞ 1●「不当な取引制限」（カルテル）の禁止",
+    "num": 85,
+    "source": "H27前",
+    "q": "独禁法に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "下請法は、事業者の資本金規模と取引の内容に基づいて規制対象となる下請取引を特定することを通じて、独禁法の特別法としての役割を果たしている。",
+      "「不当な取引制限」は、事業者間で販売価格を取り決める価格カルテル、公共入札において受注事業者を事前に取り決める入札談合、特定の事業者との取引を停止又は制限する取引拒絶などから構成される。",
+      "独禁法違反に対しては課徴金が課される一方、同法違反を自主的に公正取引委員会に報告した事業者に対する課徴金減免制度が設けられている。",
+      "事業者は、自ら行おうとする行為が独禁法に抵触するか否か明らかでない場合、公正取引委員会に対して事前相談することができる。"
+    ],
+    "correct": 1,
+    "point": "独禁法の理解力を測る。",
+    "explains": [
+      "適切。選択肢のとおり。",
+      "不適切。取引拒絶は「不公正な取引方法」の一類型である。",
+      "適切。選択肢のとおり。",
+      "適切。選択肢のとおり。"
+    ]
+  },
+  {
+    "cat": "G●企業取引規制・知的財産権の基礎 ＞ 1●私的独占の禁止及び公正取引の確保に関する法律（独禁法） ＞ 1●「不当な取引制限」（カルテル）の禁止",
+    "num": 86,
+    "source": "H24前",
+    "q": "価格カルテルに関する記述として誤っているものは、次のうちどれか。",
+    "choices": [
+      "価格カルテルは、独禁法の規制対象の3本柱である私的独占、不当な取引制限、不公正な取引方法のうち、不公正な取引方法に該当する。",
+      "事業者間で、相互に拘束される事実があれば、価格カルテルの実行に関する約束を守らない事業者にペナルティを課すことがなくても、カルテルの要件である相互拘束に該当する。",
+      "事業者間で、価格カルテルに関する意思の連絡がない場合には、競合製品について、一律の値上げが現実に生じても、独禁法違反とはならない。",
+      "リニエンシー（課徴金減免制度）を申請した事業者は、課徴金を免除されたからといって、価格カルテルを実行した以上、独禁法違反を免れることにはならない。"
+    ],
+    "correct": 0,
+    "point": "独禁法、特に不当な取引制限（カルテル）に関する理解力を測る。",
+    "explains": [
+      "誤り。カルテルは「不当な取引制限」に該当する。",
+      "正しい。選択肢のとおり。",
+      "正しい。選択肢のとおり。",
+      "正しい。選択肢のとおり。"
+    ]
+  },
+  {
+    "cat": "G●企業取引規制・知的財産権の基礎 ＞ 3●個人情報の保護に関する法律 ＞ 2●個人情報保護法の対象となる情報",
+    "num": 87,
+    "source": "H26前",
+    "q": "個人情報保護法に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "故人に関する情報であっても、生存している者の情報が含まれている場合には「個人情報」にあたる。",
+      "個人情報保護法は行政法規であり、同法を遵守していても個人情報の漏えいによって生じた損害に対する損害賠償責任が免除されるわけではない。",
+      "私企業間において、意図的に業務妨害を行う者の情報について情報交換するような場合、あらかじめ本人の同意を得る必要はない。",
+      "会社の同僚からもらった名刺100枚を悪徳業者に売り渡し、私的な利益を得た者は、個人情報保護法に基づき処罰される。"
+    ],
+    "correct": 3,
+    "point": "個人情報保護法の内容についての知識を問う。",
+    "explains": [
+      "適切。個人情報保護法で保護される「個人情報」は「生存する個人に関する情報」と規定しているため故人に関する情報はこれに含まれない。ただし、故人に関する情報の中に、故人の家族（生存する個人）に関する情報が含まれている場合があり、その場合にはその生存する家族に関する「個人情報」にあたることになりうる（個人情報保護法第2条第1項）。",
+      "適切。選択肢のとおり。",
+      "適切。私企業間において意図的に業務妨害を行う者の情報を交換する場合は、「人の生命、身体又は財産の保護のために必要がある場合であって、本人の同意を得ることが困難な場合」にあたるとされ、個人データを第三者に提供する場合でも、あらかじめ本人の同意を得ることを要しない（個人情報保護法第23条第1項第2号）。",
+      "不適切。目的が「私的な利益」を得ることである本選択肢のケースに、同法は適用されない（個人情報保護法第2条第5項）。また、「会社の同僚からもらった名刺」は通常体系的に構成している（個人情報保護法第2条第2項）ことはないことから、個人情報保護法の射程外ということがわかる。"
+    ]
+  },
+  {
+    "cat": "G●企業取引規制・知的財産権の基礎 ＞ 3●個人情報の保護に関する法律 ＞ 2●個人情報保護法の対象となる情報",
+    "num": 88,
+    "source": "H24後",
+    "q": "個人情報保護法に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "故人の個人情報は、その相続人が生存している場合でも、個人情報保護法の対象とはならない。",
+      "個人情報の保有数が過去6カ月間いずれの日においても5,000人を超えない事業者については、個人情報保護法の規制対象外となることから、個人情報を漏洩した場合でも、民事上の責任は問われない。",
+      "携帯電話の番号をもとに、興信所による調査を経て、その持ち主が明らかになる場合、当該番号は、特定個人の識別が可能な情報であることから、個人情報保護法の対象となる個人情報に該当する。",
+      "国の機関、地方公共団体等は、人口の把握、行政事務の処理等のために、住民登録等の各種手続において、氏名、住所、電話番号を広く国民から入手することから、個人情報保護法に定義する個人情報取扱事業者に該当する。"
+    ],
+    "correct": 0,
+    "point": "個人情報保護法に関する基礎知識を問う。",
+    "explains": [
+      "適切。個人情報保護法上の個人情報は、生存する個人に関する情報である（個人情報保護法第2条第1項）。",
+      "不適切。個人情報保護法は行政法規であり、同法を遵守していても、民事責任は免除されない。なお、平成29年4月施行の改正法では、5,000人を超えない事業者も対象となった。",
+      "不適切。「他の情報と容易に照合することができ、それにより特定の個人を識別することができる」場合には個人情報保護法の対象になる（同法第2条第1項）。したがって、本選択肢のケースは、興信所の調査は容易性の要件から外れるといえる。",
+      "不適切。国等は、行政機関向けの個人情報保護法によって規制を受けているため、事業者向けの個人情報保護法の規制を受けておらず、「個人情報取扱事業者」には該当しない。"
+    ]
+  },
+  {
+    "cat": "G●企業取引規制・知的財産権の基礎 ＞ 4●知的財産権の特徴と種類 ＞ 2●特許・実用新案とは",
+    "num": 89,
+    "source": "H26後",
+    "q": "以下は、機械メーカーの開発者A氏とB氏における特許権と実用新案権に関する会話である。下線部のうち、不適切なものはどれか。\n\nA氏「今回考案した製品を権利化したいのですが、特許権と実用新案権はどう違うのですか」\nB氏「まず創作の高度性が違います。権利化にあたり、ア．特許権は、実用新案権と違い、創作が高度であることが要求されます」\nA氏「だから、イ．実用新案権の審査では、新規性や進歩性などの実体審査がなされないのですね」\nB氏「それでも、ウ．権利の存続期間は、特許権、実用新案権ともに同じだから、実用新案権は有効な手段といえます」\nA氏「ほかに違いはありますか」\nB氏「エ．特許は出願から1年半で公開されますが、実用新案は登録されると公開されます」\nA氏「ありがとうございました」",
+    "choices": [
+      "特許権は、実用新案権と違い、創作が高度であることが要求される",
+      "実用新案権の審査では、新規性や進歩性などの実体審査がなされない",
+      "権利の存続期間は、特許権、実用新案権ともに同じだから、実用新案権は有効な手段といえる",
+      "特許は出願から1年半で公開されるが、実用新案は登録されると公開される"
+    ],
+    "correct": 2,
+    "point": "特許と実用新案の違いに関する基本的な理解度を問う。",
+    "explains": [
+      "適切。特許法第2条、実用新案権には高度性の要件はない。",
+      "適切。実用新案権の審査は、様式審査のみ。",
+      "不適切。特許権は原則20年（特許法第67条）、実用新案権は10年（実用新案法第15条）。",
+      "適切。特許法第64条、実用新案法第14条第3項。"
+    ]
+  },
+  {
+    "cat": "H●紛争処理の基礎 ＞ 1●公正証書・内容証明 ＞ 1●公正証書とは",
+    "num": 90,
+    "source": "H25前",
+    "q": "公正証書に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "公正証書とは、公務員がその権限に基づいて作成する一切の文書を意味するが、一般には、公証人により作成される公文書をいう。",
+      "公証人が当事者の嘱託に基づき作成する公正証書は、法律行為その他私権に関する事実につき、公証人の面前で述べたことを法令で定められた方式に従い、録取して作成した証書である。",
+      "公正証書は、私人間で作成された契約書と異なり、発行された公正証書が紛失したり、焼失したりした場合、再発行が許されない文書である。",
+      "公正証書は、公証人がその権限で作成するので、民事訴訟法上これに記載された内容、成立などが公に証明され、真正に成立した公文書との推定を受ける。"
+    ],
+    "correct": 2,
+    "point": "公正証書について正しい理解を求める。",
+    "explains": [
+      "適切。選択肢のとおり。",
+      "適切。公証人法第1条。",
+      "不適切。公正証書の原本は、公証人役場に保管される。発行された公正証書の謄本が紛失したり焼失したりした場合でも、公正証書の「再発行」が認められる。",
+      "適切。民事訴訟法第228条第2項。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
