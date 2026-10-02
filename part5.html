@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビジネスキャリア検定3級 企業法務 過去問クイズ（問題41〜50）</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --accent: #2f5fa3;
+    --accent-dark: #1e3f73;
+    --correct: #1f9d55;
+    --correct-bg: #e7f8ee;
+    --wrong: #d64545;
+    --wrong-bg: #fdecec;
+    --text: #22303f;
+    --sub: #6b7a8d;
+    --border: #dde3ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--accent-dark);
+  }
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--sub);
+  }
+  .score {
+    font-weight: bold;
+    color: var(--accent-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 22px 22px 26px;
+    margin-bottom: 18px;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--sub);
+    margin-bottom: 4px;
+  }
+  .qmeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .qnum {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .qsource {
+    font-size: 0.75rem;
+    color: var(--sub);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .qtext {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: pre-wrap;
+  }
+  .choice:hover:not(.answered) {
+    border-color: var(--accent);
+  }
+  .choice .label {
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-right: 6px;
+  }
+  .choice.correct {
+    background: var(--correct-bg);
+    border-color: var(--correct);
+  }
+  .choice.correct .label { color: var(--correct); }
+  .choice.wrong-selected {
+    background: var(--wrong-bg);
+    border-color: var(--wrong);
+  }
+  .choice.wrong-selected .label { color: var(--wrong); }
+  .choice.disabled {
+    cursor: default;
+  }
+  .result-banner {
+    display: none;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.correct { background: var(--correct-bg); color: var(--correct); }
+  .result-banner.wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .explain {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .explain.show { display: block; }
+  .explain h3 {
+    font-size: 0.85rem;
+    color: var(--accent-dark);
+    margin: 14px 0 6px;
+  }
+  .explain h3:first-child { margin-top: 0; }
+  .point-text {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .explain-choice {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .explain-choice .label {
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .explain-choice.is-correct .label { color: var(--correct); }
+  .explain-choice.is-incorrect .label { color: var(--wrong); }
+  .nextbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  button.next {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button.next.show { display: inline-block; }
+  button.next:hover { background: var(--accent-dark); }
+  .done-card {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .done-card.show { display: block; }
+  .done-card .big {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+  }
+  button.restart {
+    margin-top: 16px;
+    background: var(--accent-dark);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .note {
+    font-size: 0.78rem;
+    color: var(--sub);
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>企業法務3級 過去問クイズ（問題41〜50）</h1>
+    <div class="progress-wrap">
+      <span id="counter">1 / 10</span>
+      <span class="score">正解 <span id="scoreNum">0</span></span>
+    </div>
+  </header>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="qmeta">
+      <span class="qnum" id="qnum"></span>
+      <span class="qsource" id="qsource"></span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div id="choices"></div>
+    <div class="result-banner" id="resultBanner"></div>
+    <div class="explain" id="explain">
+      <h3>ポイント</h3>
+      <div class="point-text" id="pointText"></div>
+      <h3>解説</h3>
+      <div id="explainChoices"></div>
+    </div>
+    <div class="nextbar">
+      <button class="next" id="nextBtn">次の問題へ →</button>
+    </div>
+  </div>
+
+  <div class="card done-card" id="doneCard">
+    <div class="big">おつかれさまでした！</div>
+    <div id="finalScore"></div>
+    <button class="restart" id="restartBtn">もう一度解く</button>
+  </div>
+  <div class="note">ビジネスキャリア検定3級「企業法務」過去問集より（テキストの表記は「2級」フォルダに格納されていましたが、本文中の見出しは「企業法務3級」となっていたため、級表記についてはご確認をお願いします）</div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "cat": "C●株式会社の機関 ＞ 4●役員等の損害賠償責任と株主代表訴訟等 ＞ 1●役員等の会社に対する損害賠償責任",
+    "num": 41,
+    "source": "H24後",
+    "q": "役員の責任に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "役員の任務違反により会社に損失が生じた場合には、役員は会社に対して損害賠償責任を負うが、役員の任務違反により第三者に損失が生じた場合には、役員は第三者に対する故意又は過失がない限り損害賠償責任を負うことはない。",
+      "株主総会で株主が決議議案について質問したにもかかわらず、役員が必要な説明をしなかった場合には、株主は役員の説明義務違反として総会決議の取消しの訴えを提起できる。",
+      "役員が株主に利益供与した場合、株主の権利の行使あるいは不行使に関連がないときであっても、会社法上の利益供与罪として罰せられることがある。",
+      "役員の特別背任罪は、役員が自己又は第三者の利益を図る目的だけでなく、会社に損害を与える目的が立証されない限り、適用されない。"
+    ],
+    "correct": 1,
+    "point": "役員の責任に関する基本的知識を問う。",
+    "explains": [
+      "不適切。不法行為責任の要件を満たさなくとも、会社法第429条により、会社に対する任務違反について悪意又は重過失があれば、第三者に対する権利侵害や故意過失を問題にしないで賠償責任を負う。",
+      "適切。会社法第831条第1項第1号、第314条。",
+      "不適切。株主の権利の行使又は不行使に関連がない利益供与は、利益供与罪として罰せられることはない（会社法第970条）。",
+      "不適切。自己・第三者の利益を図る目的か、会社に損害を与える目的か、のいずれかがあれば、特別背任罪は適用されうる（会社法第960条第1項）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 4●役員等の損害賠償責任と株主代表訴訟等 ＞ 4●株主代表訴訟",
+    "num": 42,
+    "source": "H27後",
+    "q": "株主代表訴訟に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "公開会社の株主は、株式を取得後直ちに株主代表訴訟を提起することができる。",
+      "株主代表訴訟の係属中に、組織再編が行われ、原告が株主でなくなった場合、当該原告は、常に原告適格を失う。",
+      "株主代表訴訟において、会社が被告取締役の側へ補助参加するには、取締役と監査役（又は監査委員）の全員の同意が必要である。",
+      "判決の効果は、勝訴した場合でも、敗訴した場合でも、会社に及ぶ。"
+    ],
+    "correct": 3,
+    "point": "株主代表訴訟に関する基礎知識を整理する。",
+    "explains": [
+      "不適切。株主代表訴訟の原告適格を有する者は、6カ月前から引き続き株式を有する株主である（非公開会社の場合、6カ月要件はない。会社法第847条第1項、第2項）。",
+      "不適切。代表訴訟を提起した株主又はそれに共同訴訟参加した株主は、その訴訟の係属中に株主でなくなったとしても、引き続き訴訟を追行することができる場合がある。完全親会社又は合併後存続する株式会社の株式を取得した時等（会社法第851条）。",
+      "不適切。株主又は株式会社は、共同訴訟人として、又は当事者の一方を補助するため、責任追及等の訴えに係る訴訟に参加することができる。なお、会社が被告取締役・執行役・清算人、及びこれらの者であった者の側へ補助参加するには、監査役全員の同意が必要である（会社法第849条第1項〜第3項）。",
+      "適切。株主代表訴訟は、株主が会社のために訴えを提起したものであるから、判決の効果はすべて会社に帰属する（民事訴訟法第115条第1項第2号）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 4●役員等の損害賠償責任と株主代表訴訟等 ＞ 4●株主代表訴訟",
+    "num": 43,
+    "source": "H24後",
+    "q": "公開会社における株主代表訴訟に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "6カ月前から引き続き株式を有する株主は、会社に対し、取締役の責任を追及する訴訟を提起するように、書面をもって請求することができる。",
+      "株主が自己の不正な利益を図るため、あるいは会社に損害を与えることを目的とする場合は、株主代表訴訟を提起できない。",
+      "株主代表訴訟を提起した株主は、株式交換や株式移転により、当該会社の株主でなくなる代わりに当該会社の完全親会社の株主となった場合には、原告適格を失う。",
+      "会社が株主から提訴請求を受けたにもかかわらず、60日以内に役員を訴えないこととした場合、当該株主は、会社に対し不提訴とした理由の通知を求めることができる。"
+    ],
+    "correct": 2,
+    "point": "会社法の導入で、変更となった事項について理解する。",
+    "explains": [
+      "適切。公開会社では6カ月前から引き続き株式を有する株主にのみ、取締役の責任を追及できる（会社法第847条第1項）。",
+      "適切。株主が自己の不正な利益を図るためあるいは当該株式会社に損害を与えることを目的とした場合は、株主代表訴訟を提起できない（会社法第847条第1項但書）。",
+      "不適切。株式交換等があって、その会社の株主でなくなった場合には、その会社の完全親会社の株主となった場合は原告適格を失わない（会社法第851条第1項）。",
+      "適切。会社は株主から提訴請求を受けたにもかかわらず、会社が役員を訴えないこととした場合、請求があれば株主等へ不提訴とした理由を通知しなければならない（会社法第847条第4項）。"
+    ]
+  },
+  {
+    "cat": "C●株式会社の機関 ＞ 4●役員等の損害賠償責任と株主代表訴訟等 ＞ 4●株主代表訴訟",
+    "num": 44,
+    "source": "H26前",
+    "q": "株主代表訴訟に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "株主代表訴訟を提起した株主は、遅滞なく、会社に対し、訴訟告知する必要がある。",
+      "株主代表訴訟では、会社は原告株主側には訴訟参加できるが、被告側に訴訟参加することはできない。",
+      "株主代表訴訟を提起できるのは、総株主の議決権の1％以上を有する株主である。",
+      "株主は、会社に対し、取締役等の責任追及等の訴えを提起するよう請求することなく株主代表訴訟を提起できる。"
+    ],
+    "correct": 0,
+    "point": "株主代表訴訟の基礎知識を問う。",
+    "explains": [
+      "適切。会社法第849条第3項。",
+      "不適切。被告側にも訴訟参加（補助参加）することができる（会社法第849条第1項）。",
+      "不適切。代表訴訟提起権は、単独株主権である（公開会社の場合、6カ月保有要件は付されているが。会社法第847条第1項）。",
+      "不適切。株主代表訴訟を提起するためには、株主は、まず会社に対して取締役等の責任追及等の訴えの提起をすることを請求することが必要である（会社法第847条第1項、第3項）。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 1●労働法体系の基礎 ＞ 1●労働法体系の基礎",
+    "num": 45,
+    "source": "H27後",
+    "q": "労働組合と不当労働行為に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "少数労働組合の組合員で係長の者が、多数労働組合を批判し、多数労働組合に加入している部下を少数労働組合に勧誘したが、この係長の行為は不当労働行為である。",
+      "地域別の支部からそれぞれ選出された労働組合の執行委員を、会社が人事異動の対象にして、その選出母体の地域から異動させたが、これは不当労働行為である。",
+      "ユニオンショップ条項を締結している多数労働組合を脱退して少数労働組合を作った社員2名に対して、多数労働組合が解雇せよと主張しているが、会社が解雇した場合、その解雇は有効である。",
+      "少数労働組合が会社批判をするので、会社が主導して別の多数労働組合を結成させることにしたが、その行為は不当労働行為である。"
+    ],
+    "correct": 3,
+    "point": "労働組合に対する不当労働行為とユニオンショップ条項の効力について理解する。",
+    "explains": [
+      "不適切。係長の行為は、少数労働組合の組合員の立場で勧誘したものであり、労働組合間の勧誘行為は不当労働行為ではない。",
+      "不適切。地域別に選出された執行委員が異動されても当然に執行委員の地位を失うわけではなく、また、会社には、人事異動の裁量権があるので、これのみでは不当労働行為とはいえない。",
+      "不適切。会社は多数労働組合に対してはユニオンショップ条項に基づいて解雇する義務を負うが、その労働者が速やかに労働組合を結成するか加入した場合には、解雇は無効となる（三井倉庫港運事件〔最高裁平成元年12月14日判決〕、日本鋼管事件〔最高裁平成元年12月21日判決〕）。",
+      "適切。会社が、別の労働組合の結成を誘導する行為は、元からある労働組合に対しては支配介入の不当労働行為である。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 1●労働法体系の基礎 ＞ 1●労働法体系の基礎",
+    "num": 46,
+    "source": "H26前",
+    "q": "労働法の体系に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "労働者の雇入・解雇・昇進・異動に関して直接の権限を持つ監督的地位にある者の加入している労働組合は、労働組合法上の労働組合には当たらない。",
+      "個別的労働関係について定めた労働基準法は、勤労条件に関する基準は法律で定めるとした憲法第27条第2項を受けて定められたものであるが、集団的労使関係について定めた労働組合法には憲法上の根拠規定はない。",
+      "不法就労の外国人労働者には、労働基準法、最低賃金法、労働組合法等の労働法規は適用されない。",
+      "労働者の安全衛生を確保するための法律は労働基準法であり、その委任によって安全衛生規則その他の法令が制定されている。"
+    ],
+    "correct": 0,
+    "point": "労働法の体系を正確に理解する。",
+    "explains": [
+      "適切。労働組合法は保護の対象を適格な組合に限定しており、会社の利益代表者の参加を認めている労働組合は不適格な労働組合となる（労働組合法第2条第1号）。",
+      "不適切。労働組合法の憲法上の根拠規定は憲法第28条である。",
+      "不適切。不法就労の場合は出入国管理及び難民認定法違反であるが、その場合でも労働者である以上、憲法及び労働組合法の保護は受けられる。",
+      "不適切。労働者の安全衛生を定めているのは労働安全衛生法である（かつては労働基準法に定められていた）。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 1●労働法体系の基礎 ＞ 2●公益通報者保護法",
+    "num": 47,
+    "source": "H27前",
+    "q": "公益通報者保護法に定める公益通報に関する記述として適切なものは、次のうちどれか。",
+    "choices": [
+      "派遣社員は、派遣先の社員の横領行為を発見した場合、派遣元の内部通報窓口に公益通報を行うことができるが、派遣先の内部通報窓口に公益通報を行うことはできない。",
+      "会社が労働組合に対する不当労働行為を行ったことを受け、労働組合は会社に対して是正を求めたが、会社がこれに応じなかった。組合員は所管の行政官庁に対して公益通報を行うことができる。",
+      "会社が社員の残業手当を支払ってくれないので、ある社員が会社に支払ってくれるよう申し入れた。ところが、会社がタイムカードの改ざんを始めたので、その社員は労働基準監督署に通報した。すると会社から当分の間自宅待機を命じられてしまったが、この自宅待機命令は無効である。",
+      "請負契約により赴いている請負会社の従業員が、注文者の事業場でたまたまその注文者の役員が業務上の横領をしている事実を発見したので、注文者に通報したところ、請負契約を切られてしまった。これは公益通報者保護法違反である。"
+    ],
+    "correct": 2,
+    "point": "公益通報との関係で、労働問題を正確に理解する。",
+    "explains": [
+      "不適切。公益通報保護法上、保護対象者には派遣労働者が含まれ、告発先には派遣先事業主が含まれている。",
+      "不適切。会社が不当労働行為を行った場合（労働組合法第7条）、是正を求めるのは当然であるが、それを是正しない場合には都道府県労働委員会に救済申立て等の申立てか、訴訟を提起するかしかない。不当労働行為自体は犯罪行為ではなく、それに関する罰則はないので、公益通報はできない。",
+      "適切。会社が残業手当不払いという賃金支払い義務違反（労働基準法第24条違反）又は割増賃金支払い義務違反（同法第37条違反）の犯罪行為を犯しており、しかも通報後に証拠隠滅を開始したので所管の行政官庁に公益通報できる。そして、そのことを理由とした不利益取扱いといえる自宅待機命令は無効と解される（公益通報者保護法第5条）。",
+      "不適切。請負人の社員が注文者の事業所で犯罪行為、法令違反行為の事実を知ったので通報できるが、その場合、請負契約の場合にはその契約解除を禁止する旨の規定はない。したがって、公益通報者保護法違反ではない。しかし、公益通報をしたことをもって請負契約を切ることは民事上無効と解される。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 1●労働法体系の基礎 ＞ 2●公益通報者保護法",
+    "num": 48,
+    "source": "H26後",
+    "q": "公益通報者保護法で保護される通報対象事実に該当しないものは、次のうちどれか。",
+    "choices": [
+      "会社の中で、ソフトウェアの著作権侵害が行われている。",
+      "会社で残業代が支払われていない。",
+      "個人情報取扱事業者である会社が、保有している個人情報を故意に第三者に漏えいさせている。",
+      "社員が、退社後に万引きをしている。"
+    ],
+    "correct": 3,
+    "point": "公益通報者保護法で保護される通報対象事実に関する具体的な理解度を問う。",
+    "explains": [
+      "該当する。「標準テキスト」に記載はないが、著作権を故意に侵害した者については、10年以下の懲役又は1,000万円以下の罰金に処し、又は併科される（著作権法第119条第1項）。",
+      "該当する。「標準テキスト」に記載はないが、労働基準法第37条違反で6カ月以下の懲役又は30万円以下の罰金に処される（同法第119条）。",
+      "該当する。個人情報の漏えいは勧告の対象となり、勧告に関する命令に従わなかった場合、6カ月以下の懲役又は30万円以下の罰金に処される（個人情報保護法第56条）。",
+      "該当しない。事業者と無関係な私生活上の法令違反行為については、公益通報者保護法の対象とはならない。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 2●雇用形態と問題点 ＞ 1●正社員と非正規（契約）社員",
+    "num": 49,
+    "source": "H27前",
+    "q": "就業規則に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "アルバイト用の就業規則を別に定めていない会社では、正社員に適用している就業規則に定められている懲戒処分規定により、アルバイト社員を懲戒処分することができる。",
+      "派遣先で金銭を横領した派遣社員について、派遣先の就業規則に基づき懲戒処分をすることができる。",
+      "セクシュアル・ハラスメントについては、厚生労働省の作成した指針上も就業規則にセクシュアル・ハラスメントに係る性的な言動を行った者に対する懲戒規定を定め、その内容を労働者に周知・啓発することが求められている。",
+      "従業員が自ら行っている法令違反行為について公益通報した場合、公益通報を理由とした懲戒処分をすることはできないが、従業員自身の法令違反行為を理由とした懲戒処分をすることはできる。"
+    ],
+    "correct": 1,
+    "point": "就業規則に関する幅広い知識を問う。",
+    "explains": [
+      "適切。非正規社員、正社員を含めて、常時10人以上の労働者のいる事業場では、労働者全員に対して適用される就業規則を作成する義務がある（労働基準法第89条第1項）。雇用形態により個別に適用される就業規則を作成してもよいが、個別の就業規則を作成していない場合には、作成されている就業規則が当該事業場の労働者全員に適用されることになる。",
+      "不適切。派遣先と派遣社員は労働契約関係にないのであるから、派遣先の就業規則を派遣社員に適用することはできない。",
+      "適切。セクハラ指針参照。",
+      "適切。公益通報者保護法で禁止されているのは、公益通報を理由とした解雇や不利益取扱いであり、従業員自身の法令違反を理由とした懲戒処分は禁止されていない（公益通報者保護法第4条、第5条）。"
+    ]
+  },
+  {
+    "cat": "D●雇用に関する法務 ＞ 2●雇用形態と問題点 ＞ 2●派遣と請負・業務委託",
+    "num": 50,
+    "source": "H27前",
+    "q": "派遣と業務委託に関する記述として不適切なものは、次のうちどれか。",
+    "choices": [
+      "物の製造業務についての労働者派遣は、派遣先の都合により最長3年まで行うことができる。",
+      "契約書上、業務委託契約としており、委託会社に対して報酬を業務委託料という名目で支払っていれば、偽装請負と判断されることはない。",
+      "業務委託契約の委託会社の社員は、同じ工場で働いている受託会社の社員に対して指揮命令をすることができない。",
+      "派遣先の社員は派遣社員に対して指揮命令をすることができる。"
+    ],
+    "correct": 1,
+    "point": "派遣と業務委託に関する基本的知識を問う。",
+    "explains": [
+      "適切。物の製造業務に関する労働者派遣は平成16年3月1日から解禁になったが、物の製造業務は専門26業種には含まれないため（労働者派遣法施行令第4条）、派遣可能期間は原則として1年だが、派遣先の都合により最長3年まで設定することが可能である（労働者派遣法第40条の2）。なお、平成27年10月1日施行の労働者派遣法上の労働契約申込みみなし制度により、違法な派遣であることを知りながら派遣労働者を受け入れていた派遣先は、派遣労働者に対して労働契約の申込みをしたとみなされる。",
+      "不適切。偽装請負に該当するかどうかは、指揮命令の有無、資金の独立性等の実体により判断される。",
+      "適切。業務委託契約とは、委託者が、受託者に対して、特定の業務の処理を委託する契約であり、受託者の労働者は受託者の指揮命令下で労務に従事し、委託者の指揮命令下には入らない。",
+      "適切。労働者派遣とは、派遣先が自己が雇用しておらず、派遣事業主が雇用している労働者を、自己の指揮命令下で労務に従事させる形態である。"
+    ]
+  }
+];
+
+const CHOICE_LABELS = ["ア", "イ", "ウ", "エ"];
+
+let idx = 0;
+let score = 0;
+let answered = false;
+
+const counterEl = document.getElementById("counter");
+const scoreNumEl = document.getElementById("scoreNum");
+const progressBar = document.getElementById("progressBar");
+const breadcrumbEl = document.getElementById("breadcrumb");
+const qnumEl = document.getElementById("qnum");
+const qsourceEl = document.getElementById("qsource");
+const qtextEl = document.getElementById("qtext");
+const choicesEl = document.getElementById("choices");
+const resultBanner = document.getElementById("resultBanner");
+const explainEl = document.getElementById("explain");
+const pointTextEl = document.getElementById("pointText");
+const explainChoicesEl = document.getElementById("explainChoices");
+const nextBtn = document.getElementById("nextBtn");
+const quizCard = document.getElementById("quizCard");
+const doneCard = document.getElementById("doneCard");
+const finalScoreEl = document.getElementById("finalScore");
+const restartBtn = document.getElementById("restartBtn");
+
+function renderQuestion() {
+  answered = false;
+  const item = DATA[idx];
+  counterEl.textContent = (idx + 1) + " / " + DATA.length;
+  progressBar.style.width = (idx / DATA.length * 100) + "%";
+  breadcrumbEl.textContent = item.cat;
+  qnumEl.textContent = "問題 " + item.num;
+  qsourceEl.textContent = item.source;
+  qtextEl.textContent = item.q;
+
+  choicesEl.innerHTML = "";
+  item.choices.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = '<span class="label">' + CHOICE_LABELS[i] + '.</span>' + text;
+    btn.addEventListener("click", () => selectChoice(i));
+    choicesEl.appendChild(btn);
+  });
+
+  resultBanner.className = "result-banner";
+  resultBanner.textContent = "";
+  explainEl.classList.remove("show");
+  nextBtn.classList.remove("show");
+}
+
+function selectChoice(i) {
+  if (answered) return;
+  answered = true;
+  const item = DATA[idx];
+  const buttons = choicesEl.querySelectorAll(".choice");
+  buttons.forEach((b) => b.classList.add("disabled"));
+
+  const isCorrect = i === item.correct;
+  if (isCorrect) {
+    score++;
+    scoreNumEl.textContent = score;
+    buttons[i].classList.add("correct");
+    resultBanner.textContent = "○ 正解！";
+    resultBanner.className = "result-banner show correct";
+  } else {
+    buttons[i].classList.add("wrong-selected");
+    buttons[item.correct].classList.add("correct");
+    resultBanner.textContent = "✕ 不正解（正解：" + CHOICE_LABELS[item.correct] + "）";
+    resultBanner.className = "result-banner show wrong";
+  }
+
+  pointTextEl.textContent = item.point;
+  explainChoicesEl.innerHTML = "";
+  item.explains.forEach((text, ei) => {
+    const div = document.createElement("div");
+    div.className = "explain-choice " + (ei === item.correct ? "is-correct" : "is-incorrect");
+    div.innerHTML = '<span class="label">' + CHOICE_LABELS[ei] + '.</span>' + text;
+    explainChoicesEl.appendChild(div);
+  });
+  explainEl.classList.add("show");
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click", () => {
+  idx++;
+  if (idx >= DATA.length) {
+    showDone();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showDone() {
+  quizCard.style.display = "none";
+  doneCard.classList.add("show");
+  progressBar.style.width = "100%";
+  finalScoreEl.innerHTML = '<div style="font-size:1.3rem;">' + score + ' / ' + DATA.length + ' 問正解</div>';
+}
+
+restartBtn.addEventListener("click", () => {
+  idx = 0;
+  score = 0;
+  scoreNumEl.textContent = "0";
+  quizCard.style.display = "block";
+  doneCard.classList.remove("show");
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>
